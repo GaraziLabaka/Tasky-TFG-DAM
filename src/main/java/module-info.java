@@ -1,10 +1,21 @@
-module tfg {
+    module tfg {
     requires javafx.controls;
     requires javafx.fxml;
-// used to make the root folder visible to javafx
-    opens tfg to javafx.graphics, javafx.fxml;
+    requires java.naming;
+
+    // Hibernate
+    requires org.hibernate.orm.core;
+
+    // Jakarta Persistence API
+    requires jakarta.persistence;
+    
+    // opens folders to JavaFX
+    opens tfg to javafx.fxml;
+    opens tfg.LoginWindow to javafx.fxml;
+    // opens folders to Hibernate
+    opens tfg.Model to org.hibernate.orm.core;  
+
     exports tfg;
-// used to make the controller folder visible to javafx
-    opens tfg.Controller to javafx.fxml;
-    exports tfg.Controller;
+    exports tfg.LoginWindow;
+    exports tfg.Model;
 }

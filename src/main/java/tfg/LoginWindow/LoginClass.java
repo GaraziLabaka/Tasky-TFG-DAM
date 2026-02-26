@@ -1,5 +1,6 @@
 package tfg.LoginWindow;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -7,11 +8,17 @@ import java.sql.ResultSet;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Persistence;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import tfg.Model.User;
 
 public class LoginClass {
@@ -23,6 +30,11 @@ PasswordField passwordLoginField, passwordSignField;
 Button loginBtn, signupBtn;
 @FXML
 Label signupStatus, loginStatus;
+
+private Parent root;
+    private Stage stage;
+    private Scene scene;
+
 
 
 public void signup() {
@@ -44,7 +56,7 @@ public void signup() {
     }
 }
 
-public void login() {
+public void login(ActionEvent event) {
     String mailLogin = mailLoginField.getText();
     String passwordLogin = passwordLoginField.getText();
 
@@ -57,20 +69,28 @@ public void login() {
        ps.setString(2, passwordLogin);
 
        ResultSet rs = ps.executeQuery();
-       while(rs.next()) {
+       // if credentials are correct (found in the db), change view to task screen
+       if(rs.next()) {
         String mail = rs.getString("email");
-        System.out.println(mail);
         String password = rs.getString("password");
-        System.out.println(password);
-        if (mail.equals(mailLogin) && password.equals(passwordLogin)) {
             loginStatus.setText("You successfully logged in!");
-            // TODO change view to task screen
+            
+            switchTask(event);
+
         } else loginStatus.setText("Invalid password or email");
-       }
-
-
     } catch (Exception e) {
+        e.printStackTrace();
         loginStatus.setText("Invalid password or email");
     }
-}
+} 
+    
+   private void switchTask(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/tfg/View/taskWindow.fxml"));	
+		root = loader.load();	
+			
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+    }
 }

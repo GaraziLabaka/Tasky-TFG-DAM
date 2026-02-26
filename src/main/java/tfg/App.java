@@ -1,11 +1,11 @@
 package tfg;
 
 import java.io.IOException;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -14,10 +14,13 @@ import javafx.stage.Stage;
 public class App extends Application {
 
     private static Scene scene;
+    private static Image img;
 
     @Override
     public void start(Stage stage) throws IOException {
+        img = new Image("logo.png");
         scene = new Scene(loadFXML("loginWindow"), 640, 480);
+        stage.getIcons().add(img);
         stage.setScene(scene);
         stage.show();
     }

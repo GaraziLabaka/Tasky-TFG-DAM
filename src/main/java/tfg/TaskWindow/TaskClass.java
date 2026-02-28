@@ -1,6 +1,11 @@
 package tfg.TaskWindow;
 
+import java.io.IOException;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -29,8 +34,14 @@ public class TaskClass {
     private Parent root;
     private Scene scene;
 
-    public void logout() {
-        
+    public void logout(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/tfg/View/loginWindow.fxml"));	
+		root = loader.load();	
+			
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
     }
 
     public void addTask() {
@@ -53,8 +64,14 @@ public class TaskClass {
 
     }
 
-    public void switchDocs() {
-
+    public void switchDocs(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/tfg/View/docsWindow.fxml"));	
+		root = loader.load();	
+			
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
     }
 
     public void search() {

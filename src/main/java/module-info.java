@@ -8,6 +8,7 @@
 
     // Jakarta Persistence API
     requires jakarta.persistence;
+    requires javafx.web;
     
     // opens folders to JavaFX
     opens tfg to javafx.fxml;

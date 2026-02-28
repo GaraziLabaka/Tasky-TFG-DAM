@@ -29,7 +29,8 @@ public class TaskClass {
     private TableView taskTable;
     @FXML
     private Button addTask, deleteTask, editTask, saveTask, completeTask, notifyTask, docs, logout, search;
-
+    
+    
     private Stage stage;
     private Parent root;
     private Scene scene;
@@ -45,6 +46,9 @@ public class TaskClass {
     }
 
     public void addTask() {
+        String tasksTitle = taskTitle.getText();
+        String tasksContent = taskContent.getText();
+        
 
     }
 

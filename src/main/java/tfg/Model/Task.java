@@ -1,22 +1,41 @@
 package tfg.Model;
 
-import java.time.LocalDate;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
+    @Entity
+    @Table(name = "tasks")
 public class Task {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private LocalDate dateAdded;
+    @Column(nullable = false)
+    private String dateAdded;
+    @Column(nullable = false)
     private String title;
+    @Column(nullable = false)
     private String content;
+    @Column(nullable = false)
     private Category category;
+    @Column(nullable = false)
     private boolean completed;
 
-    public Task(int id, LocalDate dateAdded, String title, String content, Category category, boolean completed) {
-        this.id = id;
+
+     public Task() {
+       
+    }
+
+    public Task(String dateAdded, String title, String content, String category, boolean completed) {
+        // parse category to string to avoid conflicts in the taskClass class wen retrieving the category as a string
+       this.category = Category.valueOf(category.toUpperCase());
+        this.completed = completed;
+        this.content = content;
         this.dateAdded = dateAdded;
         this.title = title;
-        this.content = content;
-        this.category = category;
-        this.completed = completed;
     }
 
     public int getId() {
@@ -27,11 +46,11 @@ public class Task {
         this.id = id;
     }
 
-    public LocalDate getDateAdded() {
+    public String getDateAdded() {
         return dateAdded;
     }
 
-    public void setDateAdded(LocalDate dateAdded) {
+    public void setDateAdded(String dateAdded) {
         this.dateAdded = dateAdded;
     }
 

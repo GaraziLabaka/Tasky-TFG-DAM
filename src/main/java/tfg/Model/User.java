@@ -1,5 +1,7 @@
 package tfg.Model;
 
+import java.util.ArrayList;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,10 +20,19 @@ public class User {
     @Column(unique = true)
     private String email;
     private String password;
+    @Column(nullable=true)
+    private ArrayList<Task> usersTasks;
 
     public User() {
         
     }
+    public User(String name, String email, String password, ArrayList<Task> usersTasks) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.usersTasks = usersTasks;
+    }
+
     public User(String name, String email, String password) {
         this.name = name;
         this.email = email;
@@ -58,6 +69,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public ArrayList<Task> getUsersTasks() {
+        return usersTasks;
+    }
+
+    public void setUsersTasks(ArrayList<Task> usersTasks) {
+        this.usersTasks = usersTasks;
     }
 
 

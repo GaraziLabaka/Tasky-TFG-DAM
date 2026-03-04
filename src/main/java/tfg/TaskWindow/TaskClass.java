@@ -1,15 +1,13 @@
 package tfg.TaskWindow;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -53,16 +51,16 @@ public class TaskClass {
     @FXML
     private Label infoLabel;
 
-    private String[] category = {"Chores", "Hobby", "Work", "Self-care"};
-    // static entity manager
-    private static final EntityManager emf =
-        Persistence.createEntityManagerFactory("tasky").createEntityManager();
+    private final String[] category = {"WORK", "HOBBIES", "SELF_CARE", "CHORES"};
+    // static entity manager factory
+    private static final EntityManagerFactory emf =
+        Persistence.createEntityManagerFactory("tasky");
     
     private Stage stage;
     private Parent root;
     private Scene scene;
 		
-	public void initialize() {
+	public void initialize() throws SQLException {
 		// fill combobox
 		taskCategory.getItems().addAll(category);
 		taskCategory.setOnAction(this::getCategory);
@@ -74,8 +72,8 @@ public class TaskClass {
         tableCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
         tableCompleted.setCellValueFactory(new PropertyValueFactory<>("completed"));
 
-		// TODO: Load data from db
-
+		// Load data from db
+        loadFromDB();
     }
 
     public void getCategory(ActionEvent event) {
@@ -94,13 +92,10 @@ public class TaskClass {
     }
 
  public void addTask() {
-
-    
+ 
     String tasksTitle = taskTitle.getText();
     String tasksContent = taskContent.getText();
     String tasksCategory = taskCategory.getSelectionModel().getSelectedItem();
-   
-
 
     LocalDate date = taskDate.getValue();
 
@@ -130,30 +125,40 @@ public class TaskClass {
 
     public void deleteTask() {
 
-    // delete items from the GUI
+        // delete items from DB first, to avoid conflicts
+
         try {
-			// check if content is empty. If not, proceed with the else block
-			if (taskTable == null || taskTable.getSelectionModel().getSelectedItem() == null) {
-				infoLabel.setText("Select an entry from the table");
-			} else {
-				// select the item from the table
-				Task item = taskTable.getSelectionModel().getSelectedItem();
-				// remove the selected item
-				taskTable.getItems().remove(item);
-
-                // delete items from DB
-                Connection con = 
-                DriverManager.getConnection("jdbc:mysql://localhost/tasky", "root", "root");
-                String deleteQuery = "DELETE * FROM tasks WHERE id = ?";
-                PreparedStatement ps = con.prepareStatement(deleteQuery);
-                ps.setInt(1, item.getId());
-                ps.executeUpdate();
-
-			}
-		} catch (Exception e) {
-			infoLabel.setText("Select an item from the table");
-		}
-	}
+            // select the item from the table
+                Task item = taskTable.getSelectionModel().getSelectedItem();
+            // check if content is empty. If not, proceed with the else block
+            if (taskTable == null || taskTable.getSelectionModel().getSelectedItem() == null) {
+                infoLabel.setText("Select an entry from the table");
+            } else {
+                
+                if (item == null) {
+                    infoLabel.setText("Select an entry from the table");
+                    return;
+                }
+                
+                    try (EntityManager em = emf.createEntityManager()) {
+                        em.getTransaction().begin();
+                        
+                        Task selectedTask = em.find(Task.class, item.getId());
+                        if (selectedTask != null) {
+                            em.remove(selectedTask);
+                            em.getTransaction().commit();
+                        }
+                    }
+                }
+                
+                // remove the selected item from the GUI
+                taskTable.getItems().remove(item);
+                infoLabel.setText("Task deleted successfully");
+            
+        } catch (Exception e) {
+            infoLabel.setText("Error deleting task from the table");
+        }
+    }
     
 
     public void editTask() {
@@ -165,8 +170,34 @@ public class TaskClass {
     }
 
     public void completeTask() {
+    // Update database status
 
-        deleteTask();
+    
+    try {
+        //Select item data
+    Task selectedTask = taskTable.getSelectionModel().getSelectedItem();
+    // Create entity manager
+    EntityManager em = emf.createEntityManager();
+    em.getTransaction().begin();
+    // find task in table
+    Task taskFromDB = em.find(Task.class, selectedTask.getId());
+    // set task completed
+    taskFromDB.setCompleted(true);
+    // commit
+    em.getTransaction().commit();
+    
+    // update GUI
+    selectedTask.setCompleted(true);
+    
+    // refresh to update GUI, reload from DB
+    taskTable.getItems().clear();
+    loadFromDB();
+    infoLabel.setText("You completed a task!");
+    } catch (Exception e) {
+        e.printStackTrace();
+        infoLabel.setText("Something went wrong. Complete your task IRL :)");
+    }
+    
     }
 
     public void switchDocs(ActionEvent event) throws IOException {
@@ -187,24 +218,33 @@ public class TaskClass {
     public void addToDB(Task t) {
 
         try  {
-        emf.getTransaction().begin();
-        emf.persist(t);
-        emf.getTransaction().commit();
+            try (EntityManager em = emf.createEntityManager()) {
+                em.getTransaction().begin();
+                em.persist(t);
+                em.getTransaction().commit();
+            }
 
         infoLabel.setText("Task added successfully!");
-
     } catch (Exception e) {
         infoLabel.setText("Error registering task.");
     }
     }
 
-    public void loadFromDB() throws SQLException {
-        String loadQuery = "SELECT * FROM tasks";
-        Connection con = 
-        DriverManager.getConnection("jdbc:mysql://localhost/tasky", "root", "root");
-        PreparedStatement ps = con.prepareStatement(loadQuery);
-        ResultSet rs = ps.executeQuery(loadQuery);
+    public void loadFromDB() {
+    try (EntityManager em = emf.createEntityManager()) {
+        em.getTransaction().begin();
+
+        ArrayList<Task> tasksFromDB = new ArrayList<>(
+            em.createQuery("SELECT t FROM Task t", Task.class).getResultList()
+        );
+        taskTable.getItems().addAll(tasksFromDB);
+        em.getTransaction().commit();
+    } catch (Exception e) {
+        e.printStackTrace();
+        System.out.println("Error:" + e);
+        infoLabel.setText("No items in database");
     }
+}
 
 
 }

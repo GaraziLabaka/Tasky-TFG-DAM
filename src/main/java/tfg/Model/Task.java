@@ -2,6 +2,8 @@ package tfg.Model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -19,6 +21,7 @@ public class Task {
     private String title;
     @Column(nullable = false)
     private String content;
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Category category;
     @Column(nullable = false)

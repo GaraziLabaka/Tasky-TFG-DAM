@@ -137,9 +137,8 @@ public class TaskClass {
                 
                 if (item == null) {
                     infoLabel.setText("Select an entry from the table");
-                    return;
-                }
-                
+                    
+                } else {
                     try (EntityManager em = emf.createEntityManager()) {
                         em.getTransaction().begin();
                         
@@ -147,13 +146,20 @@ public class TaskClass {
                         if (selectedTask != null) {
                             em.remove(selectedTask);
                             em.getTransaction().commit();
+                            em.close();
+
+                            // remove the selected item from the GUI
+                            if (taskTable == null || taskTable.getSelectionModel().getSelectedItem() == null) {
+                            infoLabel.setText("Select an entry from the table");
+                            } else {
+                            taskTable.getItems().remove(item);
+                            infoLabel.setText("Task deleted successfully");
+                            }
+                }
+
                         }
                     }
                 }
-                
-                // remove the selected item from the GUI
-                taskTable.getItems().remove(item);
-                infoLabel.setText("Task deleted successfully");
             
         } catch (Exception e) {
             infoLabel.setText("Error deleting task from the table");
@@ -172,7 +178,6 @@ public class TaskClass {
     public void completeTask() {
     // Update database status
 
-    
     try {
         //Select item data
     Task selectedTask = taskTable.getSelectionModel().getSelectedItem();

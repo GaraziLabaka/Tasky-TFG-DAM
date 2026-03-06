@@ -66,7 +66,11 @@ public void login(ActionEvent event) {
     String mailLogin = mailLoginField.getText();
     String passwordLogin = passwordLoginField.getText();
 
-    try {
+    if (mailLogin == null || mailLogin.isEmpty() || passwordLogin == null || passwordLogin.isEmpty()) {
+        loginStatus.setText("You must enter data to login");
+        return;
+    } else {
+        try {
        
         String query = "SELECT * FROM users WHERE email = ? AND password = ?";
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost/tasky", "root", "root");
@@ -96,6 +100,8 @@ public void login(ActionEvent event) {
         e.printStackTrace();
         loginStatus.setText("Invalid password or email");
     }
+    }
+    
 }
     
    private void switchTask(ActionEvent event) throws IOException{
@@ -108,6 +114,9 @@ public void login(ActionEvent event) {
 		stage.show();
     }
 
+    private void hashPasswords() {
+        // TODO: hash passwords
+    }
     
 }
 

@@ -169,12 +169,73 @@ public class TaskClass {
     
 
     public void editTask() {
+                // select the item from the table
+                Task item = taskTable.getSelectionModel().getSelectedItem();
+        try {
+            // edit items in the GUI
+			if (item == null) {
+				infoLabel.setText("Add a task first");
+            } else {
+                // load the fields
+                taskTitle.setText(item.getTitle());
+                taskContent.setText(item.getContent());
+                taskCategory.setValue(item.getCategory().toString());
+                // formats and parses date to add it to the field
+                DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                LocalDate parsedDate = LocalDate.parse(item.getDateAdded(), format);
+                taskDate.setValue(parsedDate);
+            }
+		} catch (Exception e) {
+			infoLabel.setText("Add a task first");
+		}
 
-    }
+	}
+    
 
     public void saveTask() {
+        // gets selected item
+    Task item = taskTable.getSelectionModel().getSelectedItem();
 
+    if (item == null) {
+        infoLabel.setText("Select a task from the table");
+        return;
     }
+
+    try (EntityManager em = emf.createEntityManager()) {
+        em.getTransaction().begin();
+        // find the task in the db
+        Task taskDB = em.find(Task.class, item.getId());
+
+        if (taskDB != null) {
+
+            // get the new values from the GUI
+            String newTitle = taskTitle.getText();
+            String newContent = taskContent.getText();
+            String newCategory = taskCategory.getValue();
+            LocalDate newDate = taskDate.getValue();
+
+            DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+            // update new content in db
+            taskDB.setTitle(newTitle);
+            taskDB.setContent(newContent);
+            taskDB.setCategory(Category.valueOf(newCategory));
+            taskDB.setDateAdded(newDate.format(format));
+
+            // save changes
+            em.merge(taskDB);
+            em.getTransaction().commit();
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        infoLabel.setText("Error saving task");
+        return;
+    }
+
+    // refresh GUI
+    loadFromDB();
+    infoLabel.setText("Task updated successfully");
+}
 
     public void completeTask() {
     // Update database status

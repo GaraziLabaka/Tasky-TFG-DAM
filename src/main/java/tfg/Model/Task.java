@@ -28,6 +28,7 @@ public class Task {
     private Category category;
     @Column(nullable = false)
     private boolean completed;
+    // user id column to get each user's tasks separately
     @ManyToOne(targetEntity= User.class, optional=false)
     @JoinColumn(referencedColumnName="id", nullable=false)
     private User user;       

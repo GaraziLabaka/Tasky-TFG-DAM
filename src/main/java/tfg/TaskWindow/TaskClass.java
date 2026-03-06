@@ -25,8 +25,10 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import tfg.Model.Category;
-import tfg.Model.Task;
+import tfg.model.Category;
+import tfg.model.SessionUser;
+import tfg.model.Task;
+import tfg.model.User;
 
 public class TaskClass {
 
@@ -92,7 +94,7 @@ public class TaskClass {
     }
 
  public void addTask() {
- 
+   
     String tasksTitle = taskTitle.getText();
     String tasksContent = taskContent.getText();
     String tasksCategory = taskCategory.getSelectionModel().getSelectedItem();
@@ -111,16 +113,20 @@ public class TaskClass {
     DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     String formattedDate = date.format(format);
 
-    System.out.println(tasksTitle + " " + tasksContent + " " + formattedDate + " " + tasksCategory);
     Task t = new Task(formattedDate, tasksTitle, tasksContent, tasksCategory, false);
 
+    // Assign user to the created task
+    t.setUser(SessionUser.getCurrentUser());
+// add task to db
+     addToDB(t);
+     // add task to the GUI
     taskTable.getItems().add(t);
 
     taskTitle.clear();
     taskContent.clear();
     infoLabel.setText("Task added successfully");
 
-    addToDB(t);
+   
 }
 
     public void deleteTask() {
@@ -131,14 +137,9 @@ public class TaskClass {
             // select the item from the table
                 Task item = taskTable.getSelectionModel().getSelectedItem();
             // check if content is empty. If not, proceed with the else block
-            if (taskTable == null || taskTable.getSelectionModel().getSelectedItem() == null) {
+            if (item == null) {
                 infoLabel.setText("Select an entry from the table");
             } else {
-                
-                if (item == null) {
-                    infoLabel.setText("Select an entry from the table");
-                    
-                } else {
                     try (EntityManager em = emf.createEntityManager()) {
                         em.getTransaction().begin();
                         
@@ -146,20 +147,20 @@ public class TaskClass {
                         if (selectedTask != null) {
                             em.remove(selectedTask);
                             em.getTransaction().commit();
-                            em.close();
-
+                            
+                        
                             // remove the selected item from the GUI
-                            if (taskTable == null || taskTable.getSelectionModel().getSelectedItem() == null) {
+                            if (item == null) {
                             infoLabel.setText("Select an entry from the table");
                             } else {
                             taskTable.getItems().remove(item);
                             infoLabel.setText("Task deleted successfully");
                             }
-                }
+
+                            em.close();
+                }}
 
                         }
-                    }
-                }
             
         } catch (Exception e) {
             infoLabel.setText("Error deleting task from the table");
@@ -236,20 +237,32 @@ public class TaskClass {
     }
 
     public void loadFromDB() {
-    try (EntityManager em = emf.createEntityManager()) {
-        em.getTransaction().begin();
 
+        // clears table before loading to avoid clutter
+        taskTable.getItems().clear();
+    try (EntityManager em = emf.createEntityManager()) {
+        
+        em.getTransaction().begin();
+        //gets current logged user
+        User current = SessionUser.getCurrentUser();
+
+        // creates an array of tasks
         ArrayList<Task> tasksFromDB = new ArrayList<>(
-            em.createQuery("SELECT t FROM Task t", Task.class).getResultList()
+            // query. Selects all tasks that belong to the current user
+            em.createQuery("SELECT t FROM Task t WHERE t.user.id = :uid", Task.class)
+              .setParameter("uid", current.getId())
+              .getResultList()
         );
+        // adds tasks from the db to the GUI
         taskTable.getItems().addAll(tasksFromDB);
         em.getTransaction().commit();
     } catch (Exception e) {
         e.printStackTrace();
-        System.out.println("Error:" + e);
         infoLabel.setText("No items in database");
     }
 }
+
+
 
 
 }

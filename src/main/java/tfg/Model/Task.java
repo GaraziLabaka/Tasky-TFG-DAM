@@ -1,4 +1,4 @@
-package tfg.Model;
+package tfg.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,9 +28,9 @@ public class Task {
     private Category category;
     @Column(nullable = false)
     private boolean completed;
-    @ManyToOne(User.class, optional=false)
-    @JoinColumn(referencedColumnName="id", unique=true, nullable=false)
-    private Long user_id;
+    @ManyToOne(targetEntity= User.class, optional=false)
+    @JoinColumn(referencedColumnName="id", nullable=false)
+    private User user;       
 
      public Task() {
        
@@ -41,18 +41,16 @@ public class Task {
         this.completed = completed;
         this.content = content;
         this.dateAdded = dateAdded;
-        this.id = id;
         this.title = title;
     }
 
-    public Task(String dateAdded, String title, String content, String category, boolean completed, Long user_id) {
+    public Task(String dateAdded, String title, String content, String category, boolean completed, User user) {
         this.category = Category.valueOf(category.toUpperCase());
         this.completed = completed;
         this.content = content;
         this.dateAdded = dateAdded;
-        this.id = id;
         this.title = title;
-        this.user_id = user_id;
+        this.user = user;
     }
 
     public Long getId() {
@@ -103,12 +101,12 @@ public class Task {
         this.completed = completed;
     }
 
-    public Long getUser_id() {
-        return user_id;
+    public User getUser() {
+        return user;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setUser(User user) {
+        this.user = user;
     }
 
 

@@ -15,9 +15,9 @@
     opens tfg to javafx.fxml;
     opens tfg.LoginWindow to javafx.fxml;
     // opens folders to Hibernate
-    opens tfg.Model to org.hibernate.orm.core;  
+    opens tfg.model to org.hibernate.orm.core;  
 
     exports tfg;
     exports tfg.LoginWindow;
-    exports tfg.Model;
+    exports tfg.model;
 }

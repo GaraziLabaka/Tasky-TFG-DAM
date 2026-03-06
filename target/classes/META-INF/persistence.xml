@@ -8,8 +8,8 @@
     <persistence-unit name="tasky" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-        <class>tfg.Model.User</class>
-        <class>tfg.Model.Task</class>
+        <class>tfg.model.User</class>
+        <class>tfg.model.Task</class>
 
         <properties>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost/tasky"/>

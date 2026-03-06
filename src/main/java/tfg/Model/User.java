@@ -1,4 +1,4 @@
-package tfg.Model;
+package tfg.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -19,7 +19,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import tfg.Model.User;
+import tfg.model.User;
+import tfg.model.*;
 
 public class LoginClass {
 @FXML
@@ -70,19 +71,27 @@ public void login(ActionEvent event) {
 
        ResultSet rs = ps.executeQuery();
        // if credentials are correct (found in the db), change view to task screen
+       
        if(rs.next()) {
-        String mail = rs.getString("email");
-        String password = rs.getString("password");
-            loginStatus.setText("You successfully logged in!");
-            
-            switchTask(event);
+        User loggedUser = new User();
+    loggedUser.setId(rs.getLong("id"));
+    loggedUser.setName(rs.getString("name"));
+    loggedUser.setEmail(rs.getString("email"));
+    loggedUser.setPassword(rs.getString("password"));
 
-        } else loginStatus.setText("Invalid password or email");
+     // Keeps track of which user is logged in
+    SessionUser.setCurrentUser(loggedUser);
+
+    loginStatus.setText("You successfully logged in!");
+    switchTask(event);
+            
+           
+       }
     } catch (Exception e) {
         e.printStackTrace();
         loginStatus.setText("Invalid password or email");
     }
-} 
+}
     
    private void switchTask(ActionEvent event) throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/tfg/View/taskWindow.fxml"));	
@@ -93,4 +102,7 @@ public void login(ActionEvent event) {
 		stage.setScene(scene);
 		stage.show();
     }
+
+    
 }
+

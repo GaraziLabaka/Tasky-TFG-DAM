@@ -1,8 +1,9 @@
+tfg\model\SessionUser.class
+tfg\model\User.class
 tfg\DocsWindow\DocsWindow.class
 tfg\LoginWindow\LoginClass.class
-tfg\Model\Category.class
+tfg\model\Category.class
+tfg\model\Task.class
 module-info.class
 tfg\App.class
-tfg\Model\Task.class
 tfg\TaskWindow\TaskClass.class
-tfg\Model\User.class

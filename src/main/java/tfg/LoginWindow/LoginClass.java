@@ -19,7 +19,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import tfg.model.User;
 import tfg.model.*;
 
 public class LoginClass {
@@ -45,7 +44,11 @@ public void signup() {
 
     User user = new User(name, mail, password);
 
-    try (EntityManager entityManager = Persistence.createEntityManagerFactory("tasky").createEntityManager()) {
+    if (mail == null || mail.isEmpty() || name == null || name.isEmpty() || password == null || password.isEmpty()) {
+        signupStatus.setText("You must enter data to register");
+        return;
+    } else {
+        try (EntityManager entityManager = Persistence.createEntityManagerFactory("tasky").createEntityManager()) {
         entityManager.getTransaction().begin();
         entityManager.persist(user);
         entityManager.getTransaction().commit();
@@ -55,6 +58,8 @@ public void signup() {
     } catch (Exception e) {
         signupStatus.setText("Error registering user.");
     }
+    }
+    
 }
 
 public void login(ActionEvent event) {

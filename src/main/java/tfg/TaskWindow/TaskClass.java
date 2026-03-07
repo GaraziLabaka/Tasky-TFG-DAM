@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -323,7 +325,117 @@ public class TaskClass {
     }
 }
 
-// TODO: implement search filters
 
+// Search filters section
+ public void searchByTitle() {
+     try {
+	    	
+	    	// if table is null notify the user
+	        if (taskTable == null || taskTable.getItems() == null) {
+	            infoLabel.setText("Add content before searching");
+	            return;
+	        }
+	        // gets title
+	        String title = taskTitle.getText();
 
+	        // one list is the original list, the other one will store the results
+	        ObservableList<Task> list = taskTable.getItems();
+	        ObservableList<Task> filteredList = FXCollections.observableArrayList();
+	        
+	        // iterates through the original list
+	        for (Task entry : list) {
+	        	
+	        	//for each entry, if the title isn't null store that, or leave empty if null
+	            String entryTitle = entry.getTitle() != null ? entry.getTitle().toLowerCase() : "";
+	            
+	            // if title is not null or empty and the list's data match usser input, store that in a variable
+	            boolean matchesTitle = title != null && !title.isEmpty() && entryTitle.contains(title.toLowerCase());
+	            
+	            // if there are coincidences the filter list gets populated
+	            if (matchesTitle) {
+	                filteredList.add(entry);
+	            }
+	        }
+	        	// if the filtered list is empty, notify the user
+	        if (filteredList.isEmpty()) {
+	            infoLabel.setText("No coincidences found");
+	        } else {
+	            taskTable.setItems(filteredList);
+	            infoLabel.setText("Matching entries found");
+	        }
+
+	        // Restore original list if title is cleared
+	        taskTitle.textProperty().addListener((obs, oldVal, newVal) -> {
+	            if (newVal.isEmpty()) {
+	                taskTable.setItems(list);
+	                infoLabel.setText("Showing all entries");
+	            }
+	        });
+
+	    } catch (Exception e) {
+	        infoLabel.setText("Introduce title to search for entries");
+	    }
+	}
+
+    public void searchByDate() {
+         try {
+	    	
+	    	// if list is null notify the user
+	        if (taskTable == null || taskTable.getItems() == null) {
+	            infoLabel.setText("Add content before searching");
+	            return;
+	        }
+	        // gets date
+	        LocalDate selectedDate = taskDate.getValue();
+	        String formattedDate = null;
+	        // formats the date if it's not null
+	        if (selectedDate != null) {
+	            DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+	            formattedDate = selectedDate.format(format);
+	        }
+	        // onle list is the original list, the other one will store the results
+	        ObservableList<Task> list = taskTable.getItems();
+	        ObservableList<Task> filteredList = FXCollections.observableArrayList();
+	        
+	        // iterates through the original list
+	        for (Task entry : list) {
+	        	
+	        	//for each entry, if the date isn't null store them, or leave empty if null
+	            String entryDate = entry.getDateAdded() != null ? entry.getDateAdded() : "";
+	            
+	            // if date is not null or empty and the list's data match usser input, store that in a variable
+	            boolean matchesDate = formattedDate != null && entryDate.contains(formattedDate);
+	            
+	            // if there are coincidences the filter list gets populated
+	            if (matchesDate) {
+	                filteredList.add(entry);
+	            }
+	        }
+	        	// is the filtered list is empty, notify the user
+	        if (filteredList.isEmpty()) {
+	            infoLabel.setText("No coincidences found");
+	        } else {
+	            taskTable.setItems(filteredList);
+	            infoLabel.setText("Matching entries found");
+	        }
+
+	        // Restore original list if date is cleared
+
+	        taskDate.valueProperty().addListener((obs, oldVal, newVal) -> {
+	            if (newVal == null) {
+	                taskTable.setItems(list);
+	                infoLabel.setText("Showing all entries");
+	            }
+	        });
+
+	    } catch (Exception e) {
+	        infoLabel.setText("Introduce title/date to search for entries");
+	    }
+	}
+
+    
+
+    public void searchByCategory() {
+         
+    }
 }

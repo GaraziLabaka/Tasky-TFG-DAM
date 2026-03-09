@@ -14,6 +14,7 @@
     // opens folders to JavaFX
     opens tfg to javafx.fxml;
     opens tfg.LoginWindow to javafx.fxml;
+    opens tfg.TaskWindow to javafx.fxml;
     // opens folders to Hibernate
     opens tfg.model to org.hibernate.orm.core;  
 

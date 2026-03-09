@@ -22,7 +22,7 @@
       <Button fx:id="editTask" layoutX="252.0" layoutY="359.0" mnemonicParsing="false" onAction="#editTask" prefHeight="26.0" prefWidth="76.0" text="Edit task" />
       <Button fx:id="saveTask" layoutX="337.0" layoutY="359.0" mnemonicParsing="false" onAction="#saveTask" prefHeight="26.0" prefWidth="66.0" text="Save task" />
       <Button fx:id="deleteTask" layoutX="412.0" layoutY="359.0" mnemonicParsing="false" onAction="#deleteTask" prefHeight="26.0" prefWidth="82.0" text="Delete task" />
-      <ComboBox fx:id="taskCategory" layoutX="323.0" layoutY="14.0" onAction="#searchByCategory" prefHeight="26.0" prefWidth="150.0" promptText="Category" />
+      <ComboBox fx:id="taskCategory" layoutX="323.0" layoutY="14.0" onMousePressed="#searchByCategory" prefHeight="26.0" prefWidth="150.0" promptText="Category" />
       <Button fx:id="completeTask" layoutX="506.0" layoutY="359.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#completeTask" prefHeight="26.0" prefWidth="100.0" text="Complete Task" />
       <TableView fx:id="taskTable" layoutX="180.0" layoutY="51.0" prefHeight="303.0" prefWidth="424.0">
         <columns>

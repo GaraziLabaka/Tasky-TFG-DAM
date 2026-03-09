@@ -55,7 +55,7 @@ public class TaskClass {
     @FXML
     private Label infoLabel;
 
-    private final String[] category = {"WORK", "HOBBIES", "SELF_CARE", "CHORES"};
+    private final String[] category = {"ALL", "WORK", "HOBBIES", "SELF_CARE", "CHORES"};
     // static entity manager factory
     private static final EntityManagerFactory emf =
         Persistence.createEntityManagerFactory("tasky");
@@ -78,7 +78,10 @@ public class TaskClass {
 
 		// Load data from db
         loadFromDB();
-    }
+
+    };
+        
+    
 
     public void getCategory(ActionEvent event) {
 		
@@ -393,7 +396,7 @@ public class TaskClass {
 	            DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 	            formattedDate = selectedDate.format(format);
 	        }
-	        // onle list is the original list, the other one will store the results
+	        // one list is the original list, the other one will store the results
 	        ObservableList<Task> list = taskTable.getItems();
 	        ObservableList<Task> filteredList = FXCollections.observableArrayList();
 	        
@@ -432,10 +435,56 @@ public class TaskClass {
 	        infoLabel.setText("Introduce title/date to search for entries");
 	    }
 	}
-
-
-
+// mouse pressed because on action doesn't work
     public void searchByCategory() {
-    }
+        try {
+	    	
+	    	// if table is null notify the user
+	        if (taskTable == null || taskTable.getItems() == null) {
+	            infoLabel.setText("Add content before searching");
+	            return;
+	        }
+	        // gets title
+	        String cat = taskCategory.getValue();
+            infoLabel.setText(cat);
 
-}
+	        // one list is the original list, the other one will store the results
+	        ObservableList<Task> list = taskTable.getItems();
+	        ObservableList<Task> filteredList = FXCollections.observableArrayList();
+	        
+	        // iterates through the original list
+	        for (Task entry : list) {
+	        	
+	        	//for each entry, if the Category isn't null store that, or leave empty if null
+	            String entryCategory = entry.getCategory() != null ? String.valueOf(entry.getCategory()) : "";
+	            
+	            // if Category is not null or empty and the list's data match usser input, store that in a variable
+	            boolean matchesCategory = category != null && entryCategory.contains(cat);
+	            
+	            // if there are coincidences the filter list gets populated
+	            if (matchesCategory) {
+	                filteredList.add(entry);
+	            }
+	        }
+	        	// if the filtered list is empty, notify the user
+	        if (filteredList.isEmpty()) {
+	            infoLabel.setText("No coincidences found");
+	        } else {
+	            taskTable.setItems(filteredList);
+	            infoLabel.setText("Matching entries found");
+	        }
+
+	        // Restore original list if Category is cleared
+	        taskCategory.valueProperty().addListener((obs, oldVal, newVal) -> {
+	            if (newVal.equals("ALL")) {
+	                taskTable.setItems(list);
+                    taskCategory.getSelectionModel().clearSelection();
+	                infoLabel.setText("Showing all entries");
+	            }
+	        });
+
+	    } catch (Exception e) {
+	        infoLabel.setText("Select a category to search for entries");
+	    }
+	}
+    }

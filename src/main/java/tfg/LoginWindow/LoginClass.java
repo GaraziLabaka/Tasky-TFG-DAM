@@ -6,6 +6,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Persistence;
 import javafx.event.ActionEvent;
@@ -19,7 +21,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import tfg.model.*;
+import tfg.model.SessionUser;
+import tfg.model.User;
 
 public class LoginClass {
 @FXML
@@ -42,7 +45,7 @@ public void signup() {
     String name = nameSignField.getText();
     String password = passwordSignField.getText();
 
-    User user = new User(name, mail, password);
+    User user = new User(name, mail, hashPasswords());
 
     if (mail == null || mail.isEmpty() || name == null || name.isEmpty() || password == null || password.isEmpty()) {
         signupStatus.setText("You must enter data to register");
@@ -53,7 +56,7 @@ public void signup() {
         entityManager.persist(user);
         entityManager.getTransaction().commit();
 
-        signupStatus.setText("User registered successfully!");
+       signupStatus.setText("User registered successfully!");
 
     } catch (Exception e) {
         signupStatus.setText("Error registering user.");
@@ -71,34 +74,39 @@ public void login(ActionEvent event) {
         return;
     } else {
         try {
-       
-        String query = "SELECT * FROM users WHERE email = ? AND password = ?";
+       // check mail only because password changes every time you log in
+        String query = "SELECT * FROM users WHERE email = ?";
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost/tasky", "root", "root");
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, mailLogin);
-       ps.setString(2, passwordLogin);
 
        ResultSet rs = ps.executeQuery();
-       // if credentials are correct (found in the db), change view to task screen
+       // if password is correct (found in the db), change view to task screen
        
-       if(rs.next()) {
+       if (rs.next()) {
+        String DBPassword = rs.getString("password");
+       
+       if(BCrypt.checkpw(passwordLogin, DBPassword)) {
         User loggedUser = new User();
     loggedUser.setId(rs.getLong("id"));
     loggedUser.setName(rs.getString("name"));
     loggedUser.setEmail(rs.getString("email"));
-    loggedUser.setPassword(rs.getString("password"));
+    loggedUser.setPassword(DBPassword);
 
+    
      // Keeps track of which user is logged in
     SessionUser.setCurrentUser(loggedUser);
-
-    loginStatus.setText("You successfully logged in!");
     switchTask(event);
-            
+       } else {
+        loginStatus.setText("Invalid mail or password");
+       }      
            
+       } else {
+        loginStatus.setText("Something went wrong, try again");
        }
     } catch (Exception e) {
         e.printStackTrace();
-        loginStatus.setText("Invalid password or email");
+        loginStatus.setText("Something went wrong, try again");
     }
     }
     
@@ -114,9 +122,11 @@ public void login(ActionEvent event) {
 		stage.show();
     }
 
-    private void hashPasswords() {
-        // TODO: hash passwords
+    private String hashPasswords() {
+        String password = passwordSignField.getText();
+        String hashedPassword = BCrypt.hashpw(password, String.valueOf(BCrypt.gensalt()));
+        return hashedPassword;
+    }
     }
     
-}
 

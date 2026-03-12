@@ -10,7 +10,8 @@
     requires jakarta.persistence;
     requires javafx.web;
     requires java.sql;
-    
+
+    requires jbcrypt;
     // opens folders to JavaFX
     opens tfg to javafx.fxml;
     opens tfg.LoginWindow to javafx.fxml;

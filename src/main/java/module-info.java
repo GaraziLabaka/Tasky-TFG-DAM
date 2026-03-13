@@ -12,6 +12,7 @@
     requires java.sql;
 
     requires jbcrypt;
+    requires jakarta.mail;
     // opens folders to JavaFX
     opens tfg to javafx.fxml;
     opens tfg.LoginWindow to javafx.fxml;

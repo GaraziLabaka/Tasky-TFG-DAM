@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -9,6 +10,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="449.0" prefWidth="609.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tfg.TaskWindow.TaskClass">
    <children>
@@ -36,6 +38,10 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Label fx:id="infoLabel" layoutX="14.0" layoutY="408.0" prefHeight="26.0" prefWidth="336.0" textAlignment="CENTER" />
+      <Label fx:id="infoLabel" layoutX="12.0" layoutY="408.0" prefHeight="26.0" prefWidth="214.0" textAlignment="CENTER">
+         <font>
+            <Font size="8.0" />
+         </font></Label>
+      <CheckBox fx:id="notificationCheckbox" layoutX="228.0" layoutY="413.0" mnemonicParsing="false" onAction="#manualNotification" prefHeight="18.0" prefWidth="150.0" text="Automatic notifications" />
    </children>
 </AnchorPane>

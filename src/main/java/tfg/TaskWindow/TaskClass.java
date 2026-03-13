@@ -1,11 +1,23 @@
 package tfg.TaskWindow;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Properties;
 
+import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
+import jakarta.mail.Transport;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -18,6 +30,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -54,6 +67,8 @@ public class TaskClass {
     private Button addTask, deleteTask, editTask, saveTask, completeTask, notifyTask, docs, logout;
     @FXML
     private Label infoLabel;
+    @FXML
+    private CheckBox notificationCheckbox;
 
     private final String[] category = {"ALL", "WORK", "HOBBIES", "SELF_CARE", "CHORES"};
     // static entity manager factory
@@ -282,11 +297,44 @@ public class TaskClass {
 		stage.show();
     }
 
-
-    public void notifyTask() {
+    public void manualNotification() {
 
     }
 
+    public void notifyTask() throws SQLException {
+        String mail = SessionUser.getCurrentUser().getEmail();
+        Long user_id = SessionUser.getCurrentUser().getId();
+        ArrayList<Task> incompleteTasks = new ArrayList<>();
+
+      try {
+
+// query incomplete tasks of the current user
+EntityManager em = emf.createEntityManager();
+incompleteTasks.addAll(
+    em.createQuery(
+        "SELECT t FROM Task t WHERE t.completed = false AND t.user_id = " + SessionUser.getCurrentUser().getId(), Task.class
+    ).getResultList()
+);
+
+
+           Properties props = new Properties();
+            props.put("mail.smtp.host", "https://mail.google.com/");
+            Session session = Session.getInstance(props, null);
+            try {
+                MimeMessage msg = new MimeMessage(session);
+                msg.setFrom("me@example.com");
+                msg.setRecipients(jakarta.mail.Message.RecipientType.TO,
+                        "you@example.com");
+                msg.setSubject("Jakarta Mail hello world example");
+                msg.setDate(LocalDate.now());
+                msg.setText("Hello, world!\n");
+                Transport.send(msg, "me@example.com", "my-password");
+            } catch (MessagingException mex) {
+                System.out.println("send failed, exception: " + mex);
+            }
+        } catch (Exception e) {
+        }
+    }
     public void addToDB(Task t) {
 
         try  {

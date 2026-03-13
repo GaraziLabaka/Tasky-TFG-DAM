@@ -42,6 +42,6 @@
          <font>
             <Font size="8.0" />
          </font></Label>
-      <CheckBox fx:id="notificationCheckbox" layoutX="228.0" layoutY="413.0" mnemonicParsing="false" onAction="#manualNotification" prefHeight="18.0" prefWidth="150.0" text="Automatic notifications" />
+      <CheckBox fx:id="notificationCheckbox" layoutX="228.0" layoutY="413.0" mnemonicParsing="false" onAction="#automaticNotification" prefHeight="18.0" prefWidth="150.0" text="Automatic notifications" />
    </children>
 </AnchorPane>

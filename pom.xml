@@ -55,14 +55,19 @@
             <scope>compile</scope>
         </dependency>
         <!--Used to notify by mail-->
-        <!-- Source: https://mvnrepository.com/artifact/jakarta.mail/jakarta.mail-api -->
-        <dependency>
-            <groupId>jakarta.mail</groupId>
-            <artifactId>jakarta.mail-api</artifactId>
-            <version>2.2.0-M1</version>
-            <scope>compile</scope>
-        </dependency>
-    </dependencies>
+<dependency>
+    <groupId>com.mailjet</groupId>
+    <artifactId>mailjet-client</artifactId>
+    <version>6.0.1</version>
+    <scope>compile</scope>
+</dependency>
+<dependency>
+    <groupId>org.simplejavamail</groupId>
+    <artifactId>simple-java-mail</artifactId>
+    <version>8.12.6</version>
+</dependency>
+</dependencies>
+
     <build>
         <plugins>
             <!--Execute with mvn exec:java. Modern plugin for maven-->

@@ -1,23 +1,19 @@
 package tfg.TaskWindow;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Properties;
 
-import jakarta.mail.MessagingException;
-import jakarta.mail.Session;
-import jakarta.mail.Transport;
-import jakarta.mail.internet.MimeMessage;
-import jakarta.persistence.Entity;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import com.mailjet.client.MailjetClient;
+import com.mailjet.client.MailjetRequest;
+import com.mailjet.client.MailjetResponse;
+import com.mailjet.client.resource.Emailv31;
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -297,44 +293,84 @@ public class TaskClass {
 		stage.show();
     }
 
-    public void manualNotification() {
-
-    }
-
     public void notifyTask() throws SQLException {
-        String mail = SessionUser.getCurrentUser().getEmail();
-        Long user_id = SessionUser.getCurrentUser().getId();
-        ArrayList<Task> incompleteTasks = new ArrayList<>();
+    String mail = SessionUser.getCurrentUser().getEmail();
+    Long user_id = SessionUser.getCurrentUser().getId();
+    String username = SessionUser.getCurrentUser().getName();
+    ArrayList<Task> incompleteTasks = new ArrayList<>();
+    LocalDate today = LocalDate.now();
+    String apiKeyPublic = "2ad00135ddaa4666586dfef9f2bfcc67";
+    String apiKeyPrivate = "60e9de77873a140b2db1bced4f07ad20";
+    
+// query to get incomplete tasks of the user
 
-      try {
+// String builder to create the email content
 
-// query incomplete tasks of the current user
-EntityManager em = emf.createEntityManager();
-incompleteTasks.addAll(
-    em.createQuery(
-        "SELECT t FROM Task t WHERE t.completed = false AND t.user_id = " + SessionUser.getCurrentUser().getId(), Task.class
-    ).getResultList()
-);
+StringBuilder taskList = new StringBuilder();
 
 
-           Properties props = new Properties();
-            props.put("mail.smtp.host", "https://mail.google.com/");
-            Session session = Session.getInstance(props, null);
-            try {
-                MimeMessage msg = new MimeMessage(session);
-                msg.setFrom("me@example.com");
-                msg.setRecipients(jakarta.mail.Message.RecipientType.TO,
-                        "you@example.com");
-                msg.setSubject("Jakarta Mail hello world example");
-                msg.setDate(LocalDate.now());
-                msg.setText("Hello, world!\n");
-                Transport.send(msg, "me@example.com", "my-password");
-            } catch (MessagingException mex) {
-                System.out.println("send failed, exception: " + mex);
-            }
-        } catch (Exception e) {
-        }
+
+
+
+    EntityManager em = emf.createEntityManager();
+    incompleteTasks.addAll(
+        em.createQuery(
+            "SELECT t FROM Task t WHERE t.completed = false AND t.user.id = :userId", Task.class)
+            .setParameter("userId", user_id)
+            .getResultList()
+    );
+
+    for (Task task : incompleteTasks) {
+    taskList.append("- ")
+            .append(task.getTitle())
+            .append(" (Due: ")
+            .append(task.getDateAdded())
+            .append(" - Content: ")
+            .append(task.getContent())
+            .append(")\n");
+
+     if (incompleteTasks.isEmpty()) {
+        infoLabel.setText("No incomplete tasks to notify");
+        return;
     }
+
+    try {
+    MailjetClient client = new MailjetClient(apiKeyPublic, apiKeyPrivate);
+
+    MailjetRequest request = new MailjetRequest(Emailv31.resource)
+        .property(Emailv31.MESSAGES, new JSONArray()
+            .put(new JSONObject()
+                .put(Emailv31.Message.FROM, new JSONObject()
+                    .put("Email", "24dm.garazi.labaka@arangoya.net")
+                    .put("Name", "Tasky Staff"))
+                .put(Emailv31.Message.TO, new JSONArray()
+                    .put(new JSONObject()
+                        .put("Email", mail)
+                        .put("Name", username)))
+                .put(Emailv31.Message.SUBJECT, "Incomplete tasks notification")
+                .put(Emailv31.Message.TEXTPART, "Here are your incompleted tasks as of " + today + ":\n\n" +
+                    taskList.toString() + "\n\nDon't forget to complete them! :)"
+            ))
+        );
+
+    MailjetResponse response = client.post(request);
+    
+
+    infoLabel.setText(response.getStatus() == 200 ? "Notification sent successfully!" : "Failed to send email");
+
+} catch (Exception e) {
+    e.printStackTrace();
+    infoLabel.setText("Failed to send email");
+}}
+}
+
+public void automaticNotification() throws SQLException {
+    if (notificationCheckbox.isSelected()) {
+        notifyTask();
+    } else {
+        infoLabel.setText("Automatic notifications disabled");
+    }
+}
     public void addToDB(Task t) {
 
         try  {

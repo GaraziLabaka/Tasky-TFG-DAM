@@ -12,7 +12,12 @@
     requires java.sql;
 
     requires jbcrypt;
-    requires jakarta.mail;
+    requires org.simplejavamail.core;
+    requires com.mailjet.api;
+    requires org.json;
+    
+
+
     // opens folders to JavaFX
     opens tfg to javafx.fxml;
     opens tfg.LoginWindow to javafx.fxml;

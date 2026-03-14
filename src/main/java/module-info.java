@@ -15,6 +15,7 @@
     requires org.simplejavamail.core;
     requires com.mailjet.api;
     requires org.json;
+    requires java.prefs;
     
 
 

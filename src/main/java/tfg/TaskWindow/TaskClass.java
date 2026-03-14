@@ -5,6 +5,9 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -40,6 +43,9 @@ import tfg.model.Category;
 import tfg.model.SessionUser;
 import tfg.model.Task;
 import tfg.model.User;
+import java.util.prefs.Preferences;
+
+
 
 public class TaskClass {
 
@@ -64,7 +70,7 @@ public class TaskClass {
     @FXML
     private Label infoLabel;
     @FXML
-    private CheckBox notificationCheckbox;
+    public CheckBox notificationCheckbox;
 
     private final String[] category = {"ALL", "WORK", "HOBBIES", "SELF_CARE", "CHORES"};
     // static entity manager factory
@@ -89,6 +95,19 @@ public class TaskClass {
 
 		// Load data from db
         loadFromDB();
+        // set notification checkbox state from preferences
+        Preferences prefs = Preferences.userNodeForPackage(TaskClass.class);
+        boolean saved = prefs.getBoolean("notificationsEnabled", false);
+        notificationCheckbox.setSelected(saved);
+
+        notificationCheckbox.selectedProperty().addListener((obs, oldVal, newVal) -> {
+        prefs.putBoolean("notificationsEnabled", newVal);
+});
+
+
+
+
+
 
     };
         
@@ -368,8 +387,19 @@ StringBuilder taskList = new StringBuilder();
 
 public void automaticNotification() throws SQLException {
     if (notificationCheckbox.isSelected()) {
-        
-    } else {
+       final Runnable notification = new Runnable() {
+       public void run() { 
+           try {
+               notifyTask();
+           } catch (SQLException e) {
+               e.printStackTrace();
+           }
+       }
+     };
+    ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    scheduler.scheduleAtFixedRate(notification, 0, 1, TimeUnit.MINUTES);
+
+}  else {
         infoLabel.setText("Automatic notifications disabled");
     }
 }

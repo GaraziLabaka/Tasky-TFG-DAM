@@ -4,9 +4,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.web.WebView?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tfg.DocsWindow.DocsWindow">
-   <children>
-      <WebView fx:id="web" prefHeight="373.0" prefWidth="600.0" />
-      <Button fx:id="returnBtn" layoutX="255.0" layoutY="373.0" mnemonicParsing="false" onAction="#returnToTask" text="Return to task page" />
-   </children>
+<AnchorPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tfg.DocsWindow.DocsWindow">
+
+    <children>
+
+        <!-- WebView fills all available space -->
+        <WebView fx:id="web" AnchorPane.bottomAnchor="40" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
+
+        <!-- Button stays at the bottom and stretches horizontally -->
+        <Button fx:id="returnBtn" onAction="#returnToTask" prefHeight="40" text="Return to task page" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" />
+
+    </children>
 </AnchorPane>

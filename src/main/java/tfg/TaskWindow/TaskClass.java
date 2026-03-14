@@ -397,7 +397,7 @@ public void automaticNotification() throws SQLException {
        }
      };
     ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-    scheduler.scheduleAtFixedRate(notification, 0, 1, TimeUnit.MINUTES);
+    scheduler.scheduleAtFixedRate(notification, 0, 1, TimeUnit.DAYS);
 
 }  else {
         infoLabel.setText("Automatic notifications disabled");

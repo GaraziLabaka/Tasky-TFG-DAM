@@ -138,6 +138,10 @@ public class TaskClass {
      // add task to the GUI
     taskTable.getItems().add(t);
 
+    // set category to default value and reload to show all tasks after adding a new one, in case the user is filtering by category
+    taskCategory.setValue("All");
+    loadFromDB();
+
     taskTitle.clear();
     taskContent.clear();
     infoLabel.setText("Task added successfully");
@@ -307,11 +311,7 @@ public class TaskClass {
 // String builder to create the email content
 
 StringBuilder taskList = new StringBuilder();
-
-
-
-
-
+// Add non completed tasks to the list
     EntityManager em = emf.createEntityManager();
     incompleteTasks.addAll(
         em.createQuery(
@@ -325,10 +325,12 @@ StringBuilder taskList = new StringBuilder();
             .append(task.getTitle())
             .append(" (Due: ")
             .append(task.getDateAdded())
+            .append(" - Category: ")
+            .append(task.getCategory())
             .append(" - Content: ")
             .append(task.getContent())
             .append(")\n");
-
+    }
      if (incompleteTasks.isEmpty()) {
         infoLabel.setText("No incomplete tasks to notify");
         return;
@@ -361,12 +363,12 @@ StringBuilder taskList = new StringBuilder();
 } catch (Exception e) {
     e.printStackTrace();
     infoLabel.setText("Failed to send email");
-}}
+}
 }
 
 public void automaticNotification() throws SQLException {
     if (notificationCheckbox.isSelected()) {
-        notifyTask();
+        
     } else {
         infoLabel.setText("Automatic notifications disabled");
     }

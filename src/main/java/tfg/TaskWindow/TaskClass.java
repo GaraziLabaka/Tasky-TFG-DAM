@@ -105,13 +105,8 @@ public class TaskClass {
 });
 
 
-
-
-
-
     };
         
-    
 
     public void getCategory(ActionEvent event) {
 		

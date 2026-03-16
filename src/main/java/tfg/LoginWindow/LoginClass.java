@@ -47,7 +47,7 @@ public void signup() {
 
     User user = new User(name, mail, hashPasswords());
 
-    if (mail == null || mail.isEmpty() || name == null || name.isEmpty() || password == null || password.isEmpty()) {
+    if (mail == null || mail.isBlank() || name == null || name.isBlank() || password == null || password.isBlank()) {
         signupStatus.setText("You must enter data to register");
         return;
     } else {

@@ -54,6 +54,10 @@
                     <Button fx:id="saveTask" text="Save task" onAction="#saveTask"/>
                     <Button fx:id="deleteTask" text="Delete task" onAction="#deleteTask"/>
                 </HBox>
+
+                <HBox spacing="10">
+                    <Button fx:id="completeTask" text="Complete task" onAction="#completeTask"/>
+                </HBox>
             </VBox>
 
             <!-- RIGHT SIDE: Table -->

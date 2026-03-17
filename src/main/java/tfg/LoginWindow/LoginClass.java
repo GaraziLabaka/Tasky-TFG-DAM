@@ -113,7 +113,7 @@ public void login(ActionEvent event) {
 }
     
    private void switchTask(ActionEvent event) throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/tfg/View/taskWindow.fxml"));	
+        FXMLLoader loader =  new FXMLLoader(getClass().getResource("/tfg/View/taskWindow.fxml"));	
 		root = loader.load();	
 			
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();

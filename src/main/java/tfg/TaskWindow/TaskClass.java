@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.prefs.Preferences;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -32,18 +33,20 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.DialogEvent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import tfg.DialogWindow.DialogClass;
 import tfg.model.Category;
 import tfg.model.SessionUser;
 import tfg.model.Task;
 import tfg.model.User;
-import java.util.prefs.Preferences;
 
 
 
@@ -284,11 +287,18 @@ public class TaskClass {
     Task taskFromDB = em.find(Task.class, selectedTask.getId());
     // set task completed
     taskFromDB.setCompleted(true);
+    // Re-sets task to false
+    if (selectedTask.isCompleted()) {
+        taskFromDB.setCompleted(false);
+    }
     // commit
     em.getTransaction().commit();
     
     // update GUI
     selectedTask.setCompleted(true);
+     if (selectedTask.isCompleted()) {
+        selectedTask.setCompleted(false);
+    }
     
     // refresh to update GUI, reload from DB
     taskTable.getItems().clear();
@@ -380,24 +390,31 @@ StringBuilder taskList = new StringBuilder();
 }
 }
 
-public void automaticNotification() throws SQLException {
+public void timeChooser() throws SQLException, IOException {
     if (notificationCheckbox.isSelected()) {
-       final Runnable notification = new Runnable() {
-       public void run() { 
-           try {
-               notifyTask();
-           } catch (SQLException e) {
-               e.printStackTrace();
-           }
-       }
-     };
-    ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-    scheduler.scheduleAtFixedRate(notification, 0, 1, TimeUnit.DAYS);
 
-}  else {
+        // open dialog and get its controller
+        DialogClass controller = openDialog();
+
+        // get the number of days from the dialog's controller
+        int days = controller.saveNumberDays();
+
+        Runnable notification = () -> {
+            try {
+                notifyTask();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        };
+
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+        scheduler.scheduleAtFixedRate(notification, 0, days, TimeUnit.DAYS);
+
+    } else {
         infoLabel.setText("Automatic notifications disabled");
     }
 }
+
     public void addToDB(Task t) {
 
         try  {
@@ -598,4 +615,19 @@ public void automaticNotification() throws SQLException {
 	        infoLabel.setText("Select a category to search for entries");
 	    }
 	}
+
+    // opens dialog panel. Returns the controller of the dialog to get the data from there
+
+  public DialogClass openDialog() throws IOException {
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/tfg/View/dialogWindow.fxml"));
+    Parent root = loader.load();
+
+    Stage stageDialog = new Stage();
+    stageDialog.setScene(new Scene(root));
+
+    stageDialog.initModality(Modality.APPLICATION_MODAL); 
+    stageDialog.showAndWait(); // waits for user input
+
+    return loader.getController();
+}
     }

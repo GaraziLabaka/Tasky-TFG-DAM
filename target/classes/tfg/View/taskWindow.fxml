@@ -76,7 +76,7 @@
                 <font><Font size="10" /></font>
             </Label>
 
-            <CheckBox fx:id="notificationCheckbox" onAction="#automaticNotification" text="Automatic notifications" />
+            <CheckBox fx:id="notificationCheckbox" onAction="#timeChooser" text="Automatic notifications" />
 
             <Pane HBox.hgrow="ALWAYS" /> <!-- spacer -->
 

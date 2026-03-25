@@ -47,6 +47,8 @@ import tfg.model.SessionUser;
 import tfg.model.Task;
 import tfg.model.User;
 import tfg.services.AddTaskService;
+import tfg.services.DeleteTaskService;
+import tfg.services.EditTaskService;
 
 
 
@@ -171,8 +173,10 @@ public class TaskClass {
             // select the item from the table
                 Task item = taskTable.getSelectionModel().getSelectedItem();
             // check if content is empty. If not, proceed with the else block
-            if (item == null) {
-                infoLabel.setText("Select an entry from the table");
+            String validationMessage = new DeleteTaskService().deleteTaskService(item != null ? String.valueOf(item.getId()) : null);
+            if (!validationMessage.equals("Task deleted successfully")) {
+                infoLabel.setText(validationMessage);
+                return;
             } else {
                     try (EntityManager em = emf.createEntityManager()) {
                         em.getTransaction().begin();
@@ -207,8 +211,10 @@ public class TaskClass {
                 Task item = taskTable.getSelectionModel().getSelectedItem();
         try {
             // edit items in the GUI
-			if (item == null) {
-				infoLabel.setText("Add a task first");
+			String validationMessage = new EditTaskService().editTaskService(item != null ? String.valueOf(item.getId()) : null);
+            if (!validationMessage.equals("Task deleted successfully")) {
+                infoLabel.setText(validationMessage);
+                return;
             } else {
                 // load the fields
                 taskTitle.setText(item.getTitle());
@@ -229,11 +235,6 @@ public class TaskClass {
     public void saveTask() {
         // gets selected item
     Task item = taskTable.getSelectionModel().getSelectedItem();
-
-    if (item == null) {
-        infoLabel.setText("Select a task from the table");
-        return;
-    }
 
     try (EntityManager em = emf.createEntityManager()) {
         em.getTransaction().begin();

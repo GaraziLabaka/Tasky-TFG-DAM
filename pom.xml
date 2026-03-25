@@ -66,6 +66,25 @@
     <artifactId>simple-java-mail</artifactId>
     <version>8.12.6</version>
 </dependency>
+
+<!-- JUnit for testing -->
+<!-- Source: https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+<dependency>
+    <groupId>org.junit.jupiter</groupId>
+    <artifactId>junit-jupiter-api</artifactId>
+    <version>6.1.0-M1</version>
+    <scope>test</scope>
+</dependency>
+<!-- TestFX for JavaFX testing -->
+
+
+<dependency>
+    <groupId>org.assertj</groupId>
+    <artifactId>assertj-core</artifactId>
+    <version>3.26.0</version>
+    <scope>test</scope>
+</dependency>
+
 </dependencies>
 
     <build>

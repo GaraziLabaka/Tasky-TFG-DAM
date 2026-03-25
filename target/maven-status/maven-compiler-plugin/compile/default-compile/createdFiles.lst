@@ -4,6 +4,7 @@ tfg\DocsWindow\DocsWindow.class
 tfg\LoginWindow\LoginClass.class
 tfg\model\Category.class
 tfg\model\Task.class
+tfg\DialogWindow\DialogClass.class
 module-info.class
 tfg\App.class
 tfg\TaskWindow\TaskClass.class

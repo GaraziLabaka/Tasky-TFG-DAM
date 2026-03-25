@@ -1,3 +1,4 @@
 .vscode
 .generated-sources
 .maven-status
+/target/

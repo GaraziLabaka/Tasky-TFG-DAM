@@ -1,9 +1,13 @@
 C:\Users\glsga\TFG-DAM-Tasky\Tasky-TFG-DAM\src\main\java\module-info.java
 C:\Users\glsga\TFG-DAM-Tasky\Tasky-TFG-DAM\src\main\java\tfg\App.java
+C:\Users\glsga\TFG-DAM-Tasky\Tasky-TFG-DAM\src\main\java\tfg\DialogWindow\DialogClass.java
 C:\Users\glsga\TFG-DAM-Tasky\Tasky-TFG-DAM\src\main\java\tfg\DocsWindow\DocsWindow.java
 C:\Users\glsga\TFG-DAM-Tasky\Tasky-TFG-DAM\src\main\java\tfg\LoginWindow\LoginClass.java
 C:\Users\glsga\TFG-DAM-Tasky\Tasky-TFG-DAM\src\main\java\tfg\model\Category.java
 C:\Users\glsga\TFG-DAM-Tasky\Tasky-TFG-DAM\src\main\java\tfg\model\SessionUser.java
 C:\Users\glsga\TFG-DAM-Tasky\Tasky-TFG-DAM\src\main\java\tfg\model\Task.java
 C:\Users\glsga\TFG-DAM-Tasky\Tasky-TFG-DAM\src\main\java\tfg\model\User.java
+C:\Users\glsga\TFG-DAM-Tasky\Tasky-TFG-DAM\src\main\java\tfg\services\AddTaskService.java
+C:\Users\glsga\TFG-DAM-Tasky\Tasky-TFG-DAM\src\main\java\tfg\services\LoginService.java
+C:\Users\glsga\TFG-DAM-Tasky\Tasky-TFG-DAM\src\main\java\tfg\services\SignUpService.java
 C:\Users\glsga\TFG-DAM-Tasky\Tasky-TFG-DAM\src\main\java\tfg\TaskWindow\TaskClass.java

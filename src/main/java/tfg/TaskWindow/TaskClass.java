@@ -33,7 +33,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.DialogEvent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -47,6 +46,7 @@ import tfg.model.Category;
 import tfg.model.SessionUser;
 import tfg.model.Task;
 import tfg.model.User;
+import tfg.services.AddTaskService;
 
 
 
@@ -134,12 +134,9 @@ public class TaskClass {
 
     LocalDate date = taskDate.getValue();
 
-    if (tasksTitle == null || tasksTitle.isEmpty() ||
-        tasksContent == null || tasksContent.isEmpty() ||
-        date == null ||
-        tasksCategory == null || tasksCategory.isEmpty()) {
-
-        infoLabel.setText("Title, date, category and content must not be empty");
+    String validationMessage = new AddTaskService().addTaskService(tasksTitle, tasksContent, tasksCategory, date != null ? date.toString() : null);
+    if (!validationMessage.equals("Task added successfully")) {
+        infoLabel.setText(validationMessage);
         return;
     }
 

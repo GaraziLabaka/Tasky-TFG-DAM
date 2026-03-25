@@ -23,10 +23,15 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import tfg.model.SessionUser;
 import tfg.model.User;
+import tfg.services.LoginService;
+import tfg.services.SignUpService;
 
 public class LoginClass {
 @FXML
-TextField mailSignField, mailLoginField, nameSignField;
+TextField mailSignField;
+@FXML TextField mailLoginField;
+@FXML
+TextField nameSignField;
 @FXML
 PasswordField passwordLoginField, passwordSignField;
 @FXML
@@ -47,9 +52,9 @@ public void signup() {
 
     User user = new User(name, mail, hashPasswords());
 
-    if (mail == null || mail.isBlank() || name == null || name.isBlank() || password == null || password.isBlank()) {
-        signupStatus.setText("You must enter data to register");
-        return;
+    String validationMessage = new SignUpService().signUpService(mail, name, password);
+    if (!validationMessage.equals("Signing up...")) {
+        signupStatus.setText(validationMessage);
     } else {
         try (EntityManager entityManager = Persistence.createEntityManagerFactory("tasky").createEntityManager()) {
         entityManager.getTransaction().begin();
@@ -69,9 +74,11 @@ public void login(ActionEvent event) {
     String mailLogin = mailLoginField.getText();
     String passwordLogin = passwordLoginField.getText();
 
-    if (mailLogin == null || mailLogin.isEmpty() || passwordLogin == null || passwordLogin.isEmpty()) {
-        loginStatus.setText("You must enter data to login");
-        return;
+    // Calling up the service to validate the data before registering the user in the database. Services allow to create unit tests seamlessly using Symflower.
+// Symflower is a tool that generates unit tests for Java code, this way no fxml elements are needed to test the logic of the service, which is the one that validates the data before registering the user in the database.
+    String validationMessage = new LoginService().loginService(mailLogin, passwordLogin);
+    if (!validationMessage.equals("Logging in...")) {
+        loginStatus.setText(validationMessage);
     } else {
         try {
        // check mail only because password changes every time you log in
@@ -127,6 +134,4 @@ public void login(ActionEvent event) {
         String hashedPassword = BCrypt.hashpw(password, String.valueOf(BCrypt.gensalt()));
         return hashedPassword;
     }
-    }
-    
-
+}

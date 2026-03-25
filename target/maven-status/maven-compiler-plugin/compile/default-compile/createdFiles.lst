@@ -1,0 +1,15 @@
+tfg\model\SessionUser.class
+tfg\model\User.class
+tfg\services\DeleteTaskService.class
+tfg\DocsWindow\DocsWindow.class
+tfg\services\EditTaskService.class
+tfg\LoginWindow\LoginClass.class
+tfg\model\Category.class
+tfg\model\Task.class
+tfg\DialogWindow\DialogClass.class
+tfg\services\AddTaskService.class
+tfg\services\CompleteTaskService.class
+tfg\App.class
+tfg\services\LoginService.class
+tfg\TaskWindow\TaskClass.class
+tfg\services\SignUpService.class

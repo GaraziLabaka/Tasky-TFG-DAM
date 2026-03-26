@@ -125,6 +125,8 @@ public void login(ActionEvent event) {
 			
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
+        // loading css again because css isn't shared between views, it has to be loaded in every view that needs it
+         // alternatively, load it manually in the stylesheets section of scene builder
 		stage.setScene(scene);
 		stage.show();
     }

@@ -14,23 +14,22 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane prefHeight="450.0" prefWidth="650.0" styleClass="background" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tfg.LoginWindow.LoginClass">
+<AnchorPane prefHeight="450.0" prefWidth="650.0" styleClass="background" stylesheets="@../../CSS/styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tfg.LoginWindow.LoginClass">
    <children>
       <VBox alignment="TOP_CENTER" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <TextFlow prefHeight="32.0" prefWidth="650.0">
+            <TextFlow prefHeight="32.0" prefWidth="650.0" styleClass="welcomeLabel">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titleLabel" text="Welcome to" textAlignment="CENTER" translateX="90.0" translateY="30.0">
+                  <Text styleClass="titleLabel" text="Welcome to" textAlignment="CENTER">
+                     <font>
+                        <Font size="20.0" />
+                     </font></Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="taskyLabel" text=" Tasky" textAlignment="CENTER" wrappingWidth="61.830078125">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="taskyLabel" text=" Tasky" textAlignment="CENTER" translateX="90.0" translateY="30.0" wrappingWidth="61.830078125">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titleLabel" text=", your new task manager" textAlignment="CENTER" translateX="90.0" translateY="30.0">
+                  <Text fill="TRANSPARENT" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titleLabel" text=", your new task manager" textAlignment="CENTER">
                      <font>
                         <Font size="20.0" />
                      </font>

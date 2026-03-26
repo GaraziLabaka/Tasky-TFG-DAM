@@ -1,0 +1,40 @@
+@import 'variables';
+@import 'fonts';
+
+//Login window styles
+.background {
+    -fx-background-color: $background-color;
+}
+
+.titleLabel{
+    -fx-text-fill: $title-color;
+    -fx-text-padding: 50px;
+    -fx-font-family: "Lexend Exa", sans-serif;
+    -fx-font-size: 20px;
+}
+.taskyLabel {
+    -fx-text-alignment: center;
+    -fx-text-fill: $title-color;
+    -fx-font-family: "Parisienne", cursive;
+    -fx-font-size: 36px;
+}
+.textFields {
+    -fx-background-color: $text-fields-color;
+    -fx-prompt-text-fill: $textFields-text-color;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: $text-fields-border-color;
+    
+    &:focus{
+        -fx-border-color: $textFields-text-color;
+        -fx-border-width: 0 0 1 0;
+    }
+}
+.button {
+    -fx-background-color: $button-color;
+    -fx-text-fill: $text-color;
+
+    &:hover {
+        -fx-background-color: $button-hover-color;
+    }
+}
+

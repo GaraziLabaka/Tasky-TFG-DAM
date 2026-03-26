@@ -6,16 +6,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tfg.DialogWindow.DialogClass">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="background" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tfg.DialogWindow.DialogClass">
    <children>
-      <TextField fx:id="numberDays" layoutX="209.0" layoutY="125.0" prefHeight="26.0" prefWidth="181.0" promptText="Introduce a number of days" />
-      <Button fx:id="saveNumberDays" layoutX="261.0" layoutY="206.0" mnemonicParsing="false" onAction="#saveNumberDays" text="Save choice" />
-      <Label layoutX="57.0" layoutY="62.0" text="Please introduce a number to select the notifications' periodicity ">
+      <TextField fx:id="numberDays" layoutX="209.0" layoutY="125.0" prefHeight="26.0" prefWidth="181.0" promptText="Introduce a number of days" styleClass="textfields" />
+      <Button fx:id="saveNumberDays" layoutX="261.0" layoutY="206.0" mnemonicParsing="false" onAction="#saveNumberDays" styleClass="buttons" text="Save choice" />
+      <Label layoutX="57.0" layoutY="62.0" styleClass="titleLabel" text="Please introduce a number to select the notifications' periodicity ">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <Label fx:id="infoLabel" layoutX="56.0" layoutY="286.0" prefHeight="26.0" prefWidth="472.0" textAlignment="CENTER">
+      <Label fx:id="infoLabel" layoutX="56.0" layoutY="286.0" prefHeight="26.0" prefWidth="472.0" styleClass="infoLabel" textAlignment="CENTER">
          <font>
             <Font size="17.0" />
          </font>

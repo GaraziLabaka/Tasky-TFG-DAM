@@ -1,1 +1,4 @@
 tfg\services\AddTaskServiceTest.class
+tfg\services\DeleteTaskServiceTest.class
+tfg\services\EditTaskServiceTest.class
+tfg\services\CompleteTaskServiceTest.class

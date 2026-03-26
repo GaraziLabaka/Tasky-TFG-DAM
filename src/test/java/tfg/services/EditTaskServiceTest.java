@@ -1,7 +1,7 @@
 package tfg.services;
 
-import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 public class EditTaskServiceTest {
 	@Test
@@ -11,6 +11,6 @@ public class EditTaskServiceTest {
 		String expected = "You must select a task to edit";
 		String actual = e.editTaskService(taskId);
 
-		assertEquals(expected, actual);
+		assertEquals(expected, actual); 
 	}
 }

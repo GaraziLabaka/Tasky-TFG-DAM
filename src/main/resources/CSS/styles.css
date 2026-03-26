@@ -1,0 +1,51 @@
+@import url("https://fonts.googleapis.com/css2?family=Lexend+Exa:wght@100..900&family=Parisienne&display=swap");
+@font-face {
+  .parisienne-regular {
+    font-family: "Parisienne", cursive;
+    font-weight: 400;
+    font-style: normal;
+    src: url("https://fonts.gstatic.com/s/parisienne/v14/va9E4kzI2nYpQyLhWj8.ttf") format("truetype");
+  }
+  .lexend-exa-regular {
+    font-family: "Lexend Exa", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+  }
+}
+.background {
+  -fx-background-color: #a9cfe3;
+}
+
+.titleLabel {
+  -fx-text-fill: #143b89;
+  -fx-text-padding: 50px;
+  -fx-font-family: "Lexend Exa", sans-serif;
+  -fx-font-size: 20px;
+}
+
+.taskyLabel {
+  -fx-text-alignment: center;
+  -fx-text-fill: #143b89;
+  -fx-font-family: "Parisienne", cursive;
+  -fx-font-size: 36px;
+}
+
+.textFields {
+  -fx-background-color: #a9cfe3;
+  -fx-prompt-text-fill: #21769b;
+  -fx-border-width: 0 0 1 0;
+  -fx-border-color: #5e6d89;
+}
+.textFields:focus {
+  -fx-border-color: #21769b;
+  -fx-border-width: 0 0 1 0;
+}
+
+.button {
+  -fx-background-color: #19215c;
+  -fx-text-fill: #efefef;
+}
+.button:hover {
+  -fx-background-color: #616c97;
+}/*# sourceMappingURL=styles.css.map */

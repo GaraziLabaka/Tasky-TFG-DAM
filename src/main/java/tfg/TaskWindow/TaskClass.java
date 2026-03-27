@@ -21,6 +21,7 @@ import com.mailjet.client.resource.Emailv31;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -388,7 +389,7 @@ StringBuilder taskList = new StringBuilder();
 }
 }
 
-public void timeChooser() throws SQLException, IOException {
+public void timeChooser() throws SQLException, IOException{
     if (notificationCheckbox.isSelected()) {
 
         // open dialog and get its controller
@@ -398,17 +399,27 @@ public void timeChooser() throws SQLException, IOException {
         int days = controller.saveNumberDays();
 
         Runnable notification = () -> {
-            try {
-                notifyTask();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            //ensures that the notification runs on the JavaFX Application Thread, allowing it to interact with the GUI safely.
+            Platform.runLater(() -> {
+                try {
+                    notifyTask();
+                    // stops the scheduler after sending the notification
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            });
         };
-
-        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+        // creates a scheduled executor service that runs the notification task at fixed intervals (every specified number of days).
+        // https://stackoverflow.com/questions/50274663/how-to-set-scheduledexecutorservice-to-end-when-user-quits-program
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1, r -> {
+        Thread t = new Thread(r);
+        t.setDaemon(true); 
+        return t;
+});
         scheduler.scheduleAtFixedRate(notification, 0, days, TimeUnit.DAYS);
-
-    } else {
+    }
+      
+     else {
         infoLabel.setText("Automatic notifications disabled");
     }
 }

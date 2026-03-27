@@ -10,12 +10,9 @@
    <children>
       <TextField fx:id="numberDays" layoutX="209.0" layoutY="125.0" prefHeight="26.0" prefWidth="181.0" promptText="Introduce a number of days" styleClass="textFields" />
       <Button fx:id="saveNumberDays" layoutX="261.0" layoutY="206.0" mnemonicParsing="false" onAction="#saveNumberDays" styleClass="buttons" text="Save choice" />
-      <Label layoutX="22.0" layoutY="82.0" prefHeight="21.0" prefWidth="616.0" styleClass="titleLabel" text="Please introduce a number to select the notifications' periodicity ">
-         <font>
-            <Font size="17.0" />
-         </font>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="69.0" prefHeight="21.0" prefWidth="616.0" styleClass="dialogTitleLabel" text="Please introduce a number to select the notifications' periodicity ">
       </Label>
-      <Label fx:id="infoLabel" layoutX="56.0" layoutY="286.0" prefHeight="26.0" prefWidth="472.0" styleClass="infoLabel" textAlignment="CENTER">
+      <Label fx:id="infoLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="64.0" layoutY="287.0" prefHeight="26.0" prefWidth="472.0" styleClass="infoLabel" textAlignment="CENTER">
          <font>
             <Font size="17.0" />
          </font>

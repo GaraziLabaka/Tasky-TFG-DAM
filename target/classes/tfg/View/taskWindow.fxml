@@ -15,18 +15,18 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tfg.TaskWindow.TaskClass">
+<AnchorPane styleClass="background" stylesheets="@../../CSS/styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tfg.TaskWindow.TaskClass">
 
     <children>
 
         <!-- TOP BAR: Title, Category, Date -->
         <HBox spacing="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="10">
 
-            <TextField fx:id="taskTitle" onAction="#searchByTitle" promptText="Enter the title of the task" HBox.hgrow="ALWAYS" />
+            <TextField fx:id="taskTitle" onAction="#searchByTitle" promptText="Enter the title of the task" styleClass="textFields" HBox.hgrow="ALWAYS" />
 
-            <ComboBox fx:id="taskCategory" onMousePressed="#searchByCategory" promptText="Category" />
+            <ComboBox fx:id="taskCategory" onMousePressed="#searchByCategory" promptText="Category" styleClass="category" />
 
-            <DatePicker fx:id="taskDate" onAction="#searchByDate" promptText="Pick a date" showWeekNumbers="false" />
+            <DatePicker fx:id="taskDate" onAction="#searchByDate" promptText="Pick a date" showWeekNumbers="false" styleClass="date" />
         </HBox>
 
 
@@ -35,25 +35,25 @@
 
             <!-- LEFT SIDE: Task content -->
             <VBox prefWidth="180" spacing="10">
-                <TextArea fx:id="taskContent" promptText="What do you have to do?" wrapText="true" VBox.vgrow="ALWAYS" />
+                <TextArea fx:id="taskContent" promptText="What do you have to do?" styleClass="textArea" wrapText="true" VBox.vgrow="ALWAYS" />
 
                 <HBox spacing="10">
-                    <Button fx:id="addTask" onAction="#addTask" text="Add task" />
-                    <Button fx:id="editTask" onAction="#editTask" text="Edit task" />
+                    <Button fx:id="addTask" onAction="#addTask" styleClass="buttons" text="Add task" />
+                    <Button fx:id="editTask" onAction="#editTask" styleClass="buttons" text="Edit task" />
                 </HBox>
 
                 <HBox spacing="10">
-                    <Button fx:id="saveTask" onAction="#saveTask" text="Save task" />
-                    <Button fx:id="deleteTask" onAction="#deleteTask" text="Delete task" />
+                    <Button fx:id="saveTask" onAction="#saveTask" styleClass="buttons" text="Save task" />
+                    <Button fx:id="deleteTask" onAction="#deleteTask" styleClass="buttons" text="Delete task" />
                 </HBox>
 
                 <HBox spacing="10">
-                    <Button fx:id="completeTask" onAction="#completeTask" text="Complete task" />
+                    <Button fx:id="completeTask" onAction="#completeTask" styleClass="buttons" text="Complete task" />
                 </HBox>
             </VBox>
 
             <!-- RIGHT SIDE: Table -->
-            <TableView fx:id="taskTable" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+            <TableView fx:id="taskTable" styleClass="table" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
                 <columns>
                     <TableColumn fx:id="tableDate" text="Date" />
                     <TableColumn fx:id="tableTitle" text="Title" />
@@ -76,13 +76,13 @@
                 <font><Font size="10" /></font>
             </Label>
 
-            <CheckBox fx:id="notificationCheckbox" onAction="#timeChooser" text="Automatic notifications" />
+            <CheckBox fx:id="notificationCheckbox" onAction="#timeChooser" styleClass="checkbox" text="Automatic notifications" />
 
             <Pane HBox.hgrow="ALWAYS" /> <!-- spacer -->
 
-            <Button fx:id="notifyTask" onAction="#notifyTask" text="Notify by mail" />
-            <Button fx:id="docs" onAction="#switchDocs" text="Docs" />
-            <Button fx:id="logout" onAction="#logout" text="Log out" />
+            <Button fx:id="notifyTask" onAction="#notifyTask" styleClass="buttons" text="Notify by mail" />
+            <Button fx:id="docs" onAction="#switchDocs" styleClass="buttons" text="Docs" />
+            <Button fx:id="logout" onAction="#logout" styleClass="buttons" text="Log out" />
 
         </HBox>
 

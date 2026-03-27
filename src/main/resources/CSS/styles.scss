@@ -5,15 +5,23 @@
     -fx-background-color: $background-color;
 }
 
-// fill because the upper label is a plain test to allow the font change in Tasky
+// fill because the upper label is a plain text to allow the font change in Tasky
 
 .welcomeLabel {
-    -fx-padding: 0 0 0 200; 
+    -fx-padding: 0 0 0 150; 
     -fx-alignment: CENTER; 
 }
-
+// fill because the upper label is a plain text to allow the font change in Tasky
 .titleLabel {
     -fx-fill: $title-color;
+    -fx-font-family: "Arial";
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-label-padding: 0 50 0 0;
+}
+
+.dialogTitleLabel {
+    -fx-text-fill: $title-color;
     -fx-font-family: "Arial";
     -fx-font-size: 18px;
     -fx-font-weight: bold;
@@ -40,19 +48,38 @@
     -fx-font-weight: bold;
 }
 
-.textFields {
+.textFields{
     -fx-background-color: $text-fields-color;
     -fx-prompt-text-fill: $textFields-text-color;
     -fx-border-width: 0 0 1 0;
     -fx-border-color: $text-fields-border-color;
     -fx-background-radius: 0;
 }
+// outer layer of the text area, to make the background color of the text area the same as the text fields
+.textArea {
+    -fx-background-color: transparent;
+    -fx-prompt-text-fill: $textFields-text-color;
+    -fx-outline: none;
+    -fx-border-color: $text-fields-border-color;
+}
+//inner layer of the text area
+.textArea .content{
+    -fx-background-color: $background-color;
+    -fx-prompt-text-fill: $textFields-text-color;
+    -fx-outline: none;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: $text-fields-border-color;
+}
 
 .textFields:focus {
     -fx-border-color: $textFields-text-color;
-    -fx-border-width: 0 0 1 0;
+    -fx-border-width: 0 0 2 0;
 }
 
+.textArea:focus {
+    -fx-border-color: $textFields-text-color;
+    -fx-border-width: 0 0 2 0;
+}
 .buttons {
     -fx-background-color: $button-color;
     -fx-text-fill: $text-color;
@@ -60,5 +87,13 @@
 
 .buttons:hover {
     -fx-background-color: $button-hover-color;
+}
+
+.category {
+    -fx-background-color: $background-color;
+    -fx-text-fill: $textfields-text-color;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: $text-fields-border-color;
+
 }
 

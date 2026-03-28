@@ -39,12 +39,6 @@
   -fx-font-weight: bold;
 }
 
-.infoLabel {
-  -fx-text-fill: #21769b;
-  -fx-font-family: "Arial";
-  -fx-font-size: 14px;
-}
-
 .loginLabel {
   -fx-text-fill: #145c89;
   -fx-font-family: "Arial";
@@ -61,19 +55,32 @@
   -fx-background-radius: 0;
 }
 
-.textArea {
-  -fx-background-color: transparent;
-  -fx-prompt-text-fill: #21769b;
-  -fx-outline: none;
-  -fx-border-color: #5e6d89;
+.infoLabel {
+  -fx-text-fill: #21769b;
+  -fx-font-family: "Arial";
+  -fx-font-size: 10px;
 }
 
-.textArea .content {
-  -fx-background-color: #a9cfe3;
-  -fx-prompt-text-fill: #21769b;
-  -fx-outline: none;
-  -fx-border-width: 0 0 1 0;
-  -fx-border-color: #5e6d89;
+.text-area {
+  -fx-background-color: transparent !important;
+  -fx-background-insets: 0 !important;
+  -fx-background-radius: 0 !important;
+  -fx-padding: 0 !important;
+  -fx-border-width: 0 !important;
+  -fx-prompt-text-fill: #21769b !important;
+}
+
+.text-area .content {
+  -fx-background-color: #a9cfe3 !important;
+  -fx-background-radius: 0 !important;
+  -fx-background-insets: 0 !important;
+  -fx-border-width: 0 0 1 0 !important;
+  -fx-border-color: #5e6d89 !important;
+}
+
+.text-area:focus .content {
+  -fx-border-color: #21769b;
+  -fx-border-width: 0 0 2 0;
 }
 
 .textFields:focus {
@@ -95,7 +102,36 @@
   -fx-background-color: #616c97;
 }
 
+.checkbox {
+  -fx-mark-color: #19215c;
+  -fx-text-fill: #19215c;
+}
+.checkbox .box {
+  -fx-border-color: #19215c !important;
+  -fx-background-color: transparent !important;
+}
+
 .category {
-  -fx-background-color: #a9cfe3;
-  -fx-text-fill: #efefef;
+  -fx-background-color: #a9cfe3 !important;
+  -fx-border-width: 0 0 1 0 !important;
+  -fx-border-color: #5e6d89 !important;
+  -fx-background-radius: 0 !important;
+}
+.category .list-cell {
+  -fx-background-color: transparent !important;
+  -fx-text-fill: #21769b !important;
+}
+.category .list-view .list-cell {
+  -fx-background-color: #a9cfe3 !important;
+  -fx-text-fill: #21769b !important;
+}
+.category .list-view .list-cell:hover {
+  -fx-background-color: #19215c !important;
+  -fx-text-fill: #efefef !important;
+}
+.category .arrow-button {
+  -fx-background-color: transparent !important;
+}
+.category .arrow {
+  -fx-background-color: #21769b !important;
 }/*# sourceMappingURL=styles.css.map */

@@ -21,6 +21,7 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         img = new Image("logo.png");
         scene = new Scene(loadFXML("loginWindow"), 640, 480);
+        stage.setTitle("Tasky");
         stage.getIcons().add(img);
         String css = this.getClass().getResource("/CSS/styles.css").toExternalForm(); 
         scene.getStylesheets().add(css);

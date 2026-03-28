@@ -72,7 +72,7 @@
         <!-- BOTTOM BAR -->
         <HBox spacing="10" AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10">
 
-            <Label fx:id="infoLabel">
+            <Label fx:id="infoLabel" styleClass="infoLabel">
                 <font><Font size="10" /></font>
             </Label>
 

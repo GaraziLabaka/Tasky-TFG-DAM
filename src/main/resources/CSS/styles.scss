@@ -34,17 +34,13 @@
     -fx-font-size: 36px;
     -fx-font-weight: bold;
 }
-.infoLabel {
-    -fx-text-fill: $textFields-text-color;
-    -fx-font-family: "Arial";
-    -fx-font-size: 14px;
-}
+                                            
 
 .loginLabel {
     -fx-text-fill: $title-color;
     -fx-font-family: "Arial";
     -fx-font-size: 14px;
-    -fx-padding: 0 30 0 0;
+    -fx-padding: 0 30 0 0;                                                                                                                                                                                                                                                      
     -fx-font-weight: bold;
 }
 
@@ -55,20 +51,36 @@
     -fx-border-color: $text-fields-border-color;
     -fx-background-radius: 0;
 }
-// outer layer of the text area, to make the background color of the text area the same as the text fields
-.textArea {
-    -fx-background-color: transparent;
-    -fx-prompt-text-fill: $textFields-text-color;
-    -fx-outline: none;
-    -fx-border-color: $text-fields-border-color;
+
+.infoLabel {
+    -fx-text-fill: $textFields-text-color;
+    -fx-font-family: "Arial";
+    -fx-font-size: 10px;                                                                                                                                                                                                                                                   
 }
-//inner layer of the text area
-.textArea .content{
-    -fx-background-color: $background-color;
-    -fx-prompt-text-fill: $textFields-text-color;
-    -fx-outline: none;
-    -fx-border-width: 0 0 1 0;
-    -fx-border-color: $text-fields-border-color;
+// outer layer of the text area, to make the background color of the text area the same as the text fields
+.text-area {
+    -fx-background-color: transparent !important;
+    -fx-background-insets: 0 !important;
+    -fx-background-radius: 0 !important;
+    -fx-padding: 0 !important;
+    -fx-border-width: 0 !important;
+    -fx-prompt-text-fill: $textFields-text-color !important;
+}
+//inner layer of the text area, to make the background color of the text area the same as the text fields and to add a border only at the bottom
+// the !important is used to override the default styles of the text area, which are applied to the .content class
+.text-area .content {
+    -fx-background-color: $background-color !important;
+    -fx-background-radius: 0 !important;
+    -fx-background-insets: 0 !important;
+    -fx-border-width: 0 0 1 0 !important; 
+    -fx-border-color: $text-fields-border-color !important;
+    
+}
+
+
+.text-area:focus .content {
+    -fx-border-color: $textFields-text-color;
+    -fx-border-width: 0 0 2 0;
 }
 
 .textFields:focus {
@@ -88,12 +100,58 @@
 .buttons:hover {
     -fx-background-color: $button-hover-color;
 }
-
-.category {
-    -fx-background-color: $background-color;
-    -fx-text-fill: $textfields-text-color;
-    -fx-border-width: 0 0 1 0;
-    -fx-border-color: $text-fields-border-color;
-
+// styling checkbox
+.checkbox {
+    -fx-mark-color: $checkbox-color;
+    -fx-text-fill: $button-color;
+// styling the box of the checkbox
+    .box {
+        -fx-border-color: $checkbox-color !important;
+        -fx-background-color: transparent !important;
+    }
 }
+// category styles
+.category {
+    -fx-background-color: $background-color !important;
+    -fx-border-width: 0 0 1 0 !important;
+    -fx-border-color: $text-fields-border-color !important;
+    -fx-background-radius: 0 !important;
+
+    // when the combo box is closed, the selected item is shown in a label, which is a list cell, so we need to style it to make it look like the rest of the combo box
+    .list-cell {
+        -fx-background-color: transparent !important;
+        -fx-text-fill: $textFields-text-color !important;
+    }
+
+    // list items when the combobox is open
+    .list-view .list-cell {
+        -fx-background-color: $background-color !important;
+        -fx-text-fill: $textFields-text-color !important;
+
+        &:hover {
+            -fx-background-color: $button-color !important;
+            -fx-text-fill: $text-color !important;
+        }
+    }
+// arrow button
+    .arrow-button {
+        -fx-background-color: transparent !important;
+    }
+
+    .arrow {
+        -fx-background-color: $textFields-text-color !important;
+    }
+}
+
+
+// styling the date picker
+
+// styling the table
+
+
+
+
+
+
+
 

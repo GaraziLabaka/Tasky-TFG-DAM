@@ -143,5 +143,149 @@
     }
 }
 
+// Styling the table
+
+.table {
+    -fx-background-color: transparent !important;
+    -fx-border-color: transparent !important;
+    -fx-table-cell-border-color: transparent !important;
+
+    // the top bar
+    .column-header-background {
+        -fx-background-color: $checkbox-color !important;
+    }
+
+    .column-header {
+        -fx-background-color: transparent !important;
+        -fx-border-color: transparent !important;
+        
+        .label {
+            -fx-text-fill: $text-color !important;
+            -fx-font-weight: bold !important;
+        }
+    }
+
+    // rows
+    .table-row-cell {
+        -fx-background-color: transparent !important;
+        -fx-background-insets: 0 !important;
+        -fx-text-fill: $text-fields-color !important;
+
+        // Striped effect in every other row
+        &:odd {
+            -fx-background-color: rgba(255, 255, 255, 0.6) !important;
+        }
+
+        // cells
+        .table-cell {
+            -fx-background-color: transparent !important;
+            -fx-text-fill: $textFields-text-color !important;
+            -fx-alignment: CENTER !important;
+            -fx-padding: 8px;
+        }
+
+        // Selection & Hover
+        &:hover {
+            -fx-background-color: $button-hover-color !important;
+            .table-cell {
+                -fx-text-fill: $text-color !important;
+            }
+        }
+
+        &:selected {
+            -fx-background-color: $button-color !important;
+            .table-cell {
+                -fx-text-fill: $text-color !important;
+            }
+        }
+    }
+
+}
+
+// styling the date picker, outside part
+
+.date {
+    -fx-background-color: transparent !important;
+
+    .text {
+        -fx-prompt-text-fill: $textFields-text-color !important;
+        -fx-text-fill: $textFields-text-color !important;
+    }
+
+// date icon
+    .arrow-button {
+        -fx-background-color: transparent !important;
+    }
+
+    .arrow {
+        -fx-background-color: $textFields-text-color !important;
+    }
+// date textfield
+    .text-field {
+        -fx-background-color: transparent !important;
+        -fx-border-width: 0 0 1 0 !important;
+        -fx-border-color: $text-fields-border-color !important;
+        -fx-background-radius: 0 !important;
+        -fx-prompt-text-fill: $textFields-text-color !important;
+        -fx-text-fill: $textFields-text-color !important;
+    }
+
+    
+}
+
+// calendar menu, inside part
+
+.date-picker-popup {
+    -fx-background-color: $background-color !important;
+    -fx-border-color: $text-fields-border-color !important;
+    -fx-border-width: 1px !important;
+
+    // Top bar (Month and Year)
+    .month-year-pane {
+        -fx-background-color: $button-color !important;
+        .label {
+            -fx-text-fill: $text-color !important;
+        }
+    }
+
+    // Days header 
+    .day-name-cell {
+        -fx-text-fill: $textFields-text-color !important;
+        -fx-font-weight: bold !important;
+    }
+
+    // Individual day cells
+    .day-cell {
+        -fx-background-color: transparent !important;
+        -fx-text-fill: $textFields-text-color !important;
+
+        &:hover {
+            -fx-background-color: $button-hover-color !important;
+            -fx-text-fill: $text-color !important;
+        }
+
+        // The selected day
+        &.selected {
+            -fx-background-color: $button-color !important;
+            -fx-text-fill: $text-color !important;
+        }
+        
+        // Today's highlight
+        &.today {
+            -fx-text-fill: $textFields-text-color !important; 
+            -fx-font-weight: bold !important;
+        }
+        &.today.selected {
+            -fx-background-color: $button-color !important;
+            -fx-text-fill: $text-color !important;
+        }
+    }
+    
+    // Left and right arrows in the header
+    .left-arrow, .right-arrow {
+        -fx-background-color: $text-color !important;
+    }
+}
+
 
 

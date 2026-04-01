@@ -19,11 +19,11 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        img = new Image("logo.png");
+        img = new Image("/static/images/logo.png");
         scene = new Scene(loadFXML("loginWindow"), 640, 480);
         stage.setTitle("Tasky");
         stage.getIcons().add(img);
-        String css = this.getClass().getResource("/CSS/styles.css").toExternalForm(); 
+        String css = this.getClass().getResource("/static/CSS/styles.css").toExternalForm(); 
         scene.getStylesheets().add(css);
         stage.setScene(scene);
         stage.show();

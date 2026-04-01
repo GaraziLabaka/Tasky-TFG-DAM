@@ -12,7 +12,7 @@
         <WebView fx:id="web" AnchorPane.bottomAnchor="40" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
 
         <!-- Button stays at the bottom and stretches horizontally -->
-        <Button fx:id="returnBtn" onAction="#returnToTask" prefHeight="40" styleClass="buttons" stylesheets="@../../CSS/styles.css" text="Return to task page" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" />
+        <Button fx:id="returnBtn" onAction="#returnToTask" prefHeight="40" styleClass="buttons" stylesheets="@../../static/CSS/styles.css" text="Return to task page" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" />
 
     </children>
 </AnchorPane>

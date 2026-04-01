@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane styleClass="background" stylesheets="@../../CSS/styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tfg.TaskWindow.TaskClass">
+<AnchorPane styleClass="background" stylesheets="@../../static/CSS/styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tfg.TaskWindow.TaskClass">
 
     <children>
 

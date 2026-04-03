@@ -1,33 +1,49 @@
+@import "fonts.css";
 body {
   background-color: #a9cfe3 !important;
-  margin: 0;
   font-family: Arial, sans-serif;
 }
 
 .navigation-bar {
   background-color: #19215c !important;
   display: flex;
-  padding: 10px 20px;
+  align-items: center;
+  align-content: center;
   gap: 15px;
+  height: 40px;
 }
 .navigation-bar .navlink {
   color: #efefef !important;
   text-decoration: none;
   font-weight: bold;
-  padding: 5px 10px;
+  height: 100%;
+  gap: 15px;
 }
 .navigation-bar .navlink:hover {
   background-color: #616c97 !important;
+  padding: 10px;
 }
 
 .content {
   padding: 20px;
 }
 
+h1 {
+  color: #19215c !important;
+  margin-bottom: 20px;
+  text-align: center !important;
+}
+
+.taskyName {
+  color: #19215c !important;
+  font-size: 36px;
+  font-family: "Parisienne", sans-serif;
+}
+
 .flex-container {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 200px;
   margin-bottom: 20px;
 }
 .flex-container img {

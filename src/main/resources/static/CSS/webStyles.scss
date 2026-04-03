@@ -1,38 +1,56 @@
-@import "../../static/CSS/variables.scss";
-@import "../../static/CSS/fonts.scss";
+@import "variables.scss";
+@import "fonts.css";
 
 body {
     background-color: $background-color !important;
-    margin: 0;
     font-family: Arial, sans-serif;
 }
 
 .navigation-bar {
     background-color: $button-color !important;
     display: flex;
-    padding: 10px 20px;
+    align-items: center;
+    align-content: center;
     gap: 15px;
+    height: 40px;
 
     .navlink {
         color: $text-color !important;
         text-decoration: none;
         font-weight: bold;
-        padding: 5px 10px;
+        height: 100%;
+        gap: 15px;
 
         &:hover {
             background-color: $button-hover-color !important;
+            padding: 10px;
         }
     }
 }
+
+
+
 
 .content {
     padding: 20px;
 }
 
+h1 {
+    color: $button-color !important;
+    margin-bottom: 20px;
+    text-align: center !important;
+}
+
+.taskyName {
+    color: $button-color !important;
+    font-size: 36px;
+    font-family: "Parisienne", sans-serif;
+}
+
 .flex-container {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 200px;
     margin-bottom: 20px;
     
     img {

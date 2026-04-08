@@ -18,10 +18,8 @@ body {
         color: $text-color !important;
         text-decoration: none;
         font-weight: bold;
+        height: 100%;
         gap: 15px;
-        justify-content: center !important;
-        align-items: center !important;
-        padding: 10px;
 
         &:hover {
             background-color: $button-hover-color !important;
@@ -40,6 +38,12 @@ h1 {
     color: $button-color !important;
     margin-bottom: 20px;
     text-align: center !important;
+
+    h3 {
+        color: $title-color !important;
+        margin-bottom: 20px;
+        font-weight: normal !important;
+    }
 }
 
 .inner-link {
@@ -56,6 +60,15 @@ h1 {
     color: $button-color !important;
     font-size: 36px;
     font-family: "Parisienne", sans-serif;
+}
+
+.inner-link {
+    color: $button-color !important;
+    text-decoration: none;
+
+    &:hover {
+        color: $button-hover-color !important;
+       }
 }
 
 .flex-container {

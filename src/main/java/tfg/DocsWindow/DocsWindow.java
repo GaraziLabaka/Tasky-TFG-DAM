@@ -22,6 +22,10 @@ public class DocsWindow {
     private Scene scene;
     private Stage stage;
 
+    public void initialize() {
+        String url = getClass().getResource("/static/webpage/main.html").toExternalForm();
+        web.getEngine().load(url);
+    }
 
     public void returnToTask(ActionEvent event) throws IOException {
          FXMLLoader loader = new FXMLLoader(getClass().getResource("/tfg/View/taskWindow.fxml"));	

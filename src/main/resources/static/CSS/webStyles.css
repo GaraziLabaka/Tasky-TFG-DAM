@@ -16,12 +16,13 @@ body {
   color: #efefef !important;
   text-decoration: none;
   font-weight: bold;
-  height: 100%;
   gap: 15px;
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 10px;
 }
 .navigation-bar .navlink:hover {
   background-color: #616c97 !important;
-  padding: 10px;
 }
 
 .content {
@@ -32,6 +33,15 @@ h1 {
   color: #19215c !important;
   margin-bottom: 20px;
   text-align: center !important;
+}
+
+.inner-link {
+  color: #19215c !important;
+  text-decoration: none;
+  font-weight: bold;
+}
+.inner-link:hover {
+  color: #616c97 !important;
 }
 
 .taskyName {

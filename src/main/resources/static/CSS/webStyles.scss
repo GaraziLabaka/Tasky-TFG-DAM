@@ -18,12 +18,13 @@ body {
         color: $text-color !important;
         text-decoration: none;
         font-weight: bold;
-        height: 100%;
         gap: 15px;
+        justify-content: center !important;
+        align-items: center !important;
+        padding: 10px;
 
         &:hover {
             background-color: $button-hover-color !important;
-            padding: 10px;
         }
     }
 }
@@ -39,6 +40,16 @@ h1 {
     color: $button-color !important;
     margin-bottom: 20px;
     text-align: center !important;
+}
+
+.inner-link {
+    color: $button-color !important;
+    text-decoration: none;
+    font-weight: bold;
+
+    &:hover {
+        color: $button-hover-color !important;
+    }
 }
 
 .taskyName {

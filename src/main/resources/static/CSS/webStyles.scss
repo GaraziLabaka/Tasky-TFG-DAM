@@ -16,14 +16,17 @@ body {
 
     .navlink {
         color: $text-color !important;
-        text-decoration: none;
-        font-weight: bold;
+        text-decoration: none !important;
+        font-weight: bold !important;
         height: 100%;
         gap: 15px;
+        align-items: center;
+        align-content: center;
+        margin: 10px !important;
+
 
         &:hover {
             background-color: $button-hover-color !important;
-            padding: 10px;
         }
     }
 }
@@ -39,12 +42,27 @@ h1 {
     color: $button-color !important;
     margin-bottom: 20px;
     text-align: center !important;
+
+    h3 {
+        color: $title-color !important;
+        margin-bottom: 20px;
+        font-weight: normal !important;
+    }
 }
 
 .taskyName {
     color: $button-color !important;
     font-size: 36px;
     font-family: "Parisienne", sans-serif;
+}
+
+.inner-link {
+    color: $button-color !important;
+    text-decoration: none;
+
+    &:hover {
+        color: $button-hover-color !important;
+       }
 }
 
 .flex-container {

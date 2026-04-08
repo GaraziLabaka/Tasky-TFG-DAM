@@ -14,14 +14,16 @@ body {
 }
 .navigation-bar .navlink {
   color: #efefef !important;
-  text-decoration: none;
-  font-weight: bold;
+  text-decoration: none !important;
+  font-weight: bold !important;
   height: 100%;
   gap: 15px;
+  align-items: center;
+  align-content: center;
+  margin: 10px !important;
 }
 .navigation-bar .navlink:hover {
   background-color: #616c97 !important;
-  padding: 10px;
 }
 
 .content {
@@ -33,11 +35,24 @@ h1 {
   margin-bottom: 20px;
   text-align: center !important;
 }
+h1 h3 {
+  color: #145c89 !important;
+  margin-bottom: 20px;
+  font-weight: normal !important;
+}
 
 .taskyName {
   color: #19215c !important;
   font-size: 36px;
   font-family: "Parisienne", sans-serif;
+}
+
+.inner-link {
+  color: #19215c !important;
+  text-decoration: none;
+}
+.inner-link:hover {
+  color: #616c97 !important;
 }
 
 .flex-container {

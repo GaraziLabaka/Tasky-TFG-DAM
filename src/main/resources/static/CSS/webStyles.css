@@ -16,7 +16,6 @@ body {
   color: #efefef !important;
   text-decoration: none;
   font-weight: bold;
-  height: 100%;
   gap: 15px;
 }
 .navigation-bar .navlink:hover {
@@ -32,7 +31,7 @@ h1 {
   margin-bottom: 20px;
   text-align: center !important;
 }
-h1 h3 {
+h1 p {
   color: #145c89 !important;
   margin-bottom: 20px;
   font-weight: normal !important;

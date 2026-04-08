@@ -9,13 +9,13 @@ body {
   display: flex;
   align-items: center;
   align-content: center;
-  gap: 15px;
   height: 40px;
 }
 .navigation-bar .navlink {
   color: #efefef !important;
   text-decoration: none;
   font-weight: bold;
+  padding: 10px;
   gap: 15px;
 }
 .navigation-bar .navlink:hover {

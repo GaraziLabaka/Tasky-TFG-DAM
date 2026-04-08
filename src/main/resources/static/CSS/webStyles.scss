@@ -11,13 +11,13 @@ body {
     display: flex;
     align-items: center;
     align-content: center;
-    gap: 15px;
     height: 40px;
 
     .navlink {
         color: $text-color !important;
         text-decoration: none;
         font-weight: bold;
+        padding: 10px;
         gap: 15px;
 
         &:hover {

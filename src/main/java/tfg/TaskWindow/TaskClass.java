@@ -72,7 +72,7 @@ public class TaskClass {
     @FXML
     private TableColumn<Task, Category> tableCategory;
     @FXML
-    private Button addTask, deleteTask, editTask, saveTask, completeTask, notifyTask, docs, logout;
+    private Button addTask, deleteTask, editTask, saveTask, completeTask, notifyTask, logout;
     @FXML
     private Label infoLabel;
     @FXML
@@ -308,16 +308,6 @@ public class TaskClass {
         infoLabel.setText("Something went wrong. Complete your task IRL :)");
     }
     
-    }
-
-    public void switchDocs(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/tfg/View/docsWindow.fxml"));	
-		root = loader.load();	
-			
-		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		scene = new Scene(root);
-		stage.setScene(scene);
-		stage.show();
     }
 
     public void notifyTask() throws SQLException {

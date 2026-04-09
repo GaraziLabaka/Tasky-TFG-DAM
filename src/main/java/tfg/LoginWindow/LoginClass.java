@@ -35,7 +35,7 @@ TextField nameSignField;
 @FXML
 PasswordField passwordLoginField, passwordSignField;
 @FXML
-Button loginBtn, signupBtn;
+Button loginBtn, signupBtn, docsBtn;
 @FXML
 Label signupStatus, loginStatus;
 
@@ -129,6 +129,15 @@ public void login(ActionEvent event) {
          // alternatively, load it manually in the stylesheets section of scene builder
 		stage.setScene(scene);
 		stage.show();
+    }
+
+    public void switchToDocs(ActionEvent event) throws IOException {
+        FXMLLoader loader =  new FXMLLoader(getClass().getResource("/tfg/View/docsWindow.fxml"));
+        root = loader.load();
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     private String hashPasswords() {

@@ -27,8 +27,8 @@ public class DocsWindow {
         web.getEngine().load(url);
     }
 
-    public void returnToTask(ActionEvent event) throws IOException {
-         FXMLLoader loader = new FXMLLoader(getClass().getResource("/tfg/View/taskWindow.fxml"));	
+    public void returnToLogin(ActionEvent event) throws IOException {
+         FXMLLoader loader = new FXMLLoader(getClass().getResource("/tfg/View/loginWindow.fxml"));	
 		root = loader.load();	
 			
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();

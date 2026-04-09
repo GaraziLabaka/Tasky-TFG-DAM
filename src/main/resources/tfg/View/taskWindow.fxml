@@ -81,7 +81,6 @@
             <Pane HBox.hgrow="ALWAYS" /> <!-- spacer -->
 
             <Button fx:id="notifyTask" onAction="#notifyTask" styleClass="buttons" text="Notify by mail" />
-            <Button fx:id="docs" onAction="#switchDocs" styleClass="buttons" text="Docs" />
             <Button fx:id="logout" onAction="#logout" styleClass="buttons" text="Log out" />
 
         </HBox>

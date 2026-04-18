@@ -63,10 +63,18 @@ h1 p {
 .flex-container {
   display: flex;
   align-items: center;
-  gap: 200px;
   margin-bottom: 20px;
+  gap: 20px;
 }
 .flex-container img {
-  max-width: 300px;
   height: auto;
+  height: auto;
+}
+.flex-container .logo {
+  height: 100px;
+  width: 100px;
+}
+.flex-container .overview {
+  height: 300px;
+  width: 900px;
 }/*# sourceMappingURL=webStyles.css.map */

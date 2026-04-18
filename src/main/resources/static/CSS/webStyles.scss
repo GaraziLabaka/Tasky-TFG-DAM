@@ -73,11 +73,22 @@ h1 {
 .flex-container {
     display: flex;
     align-items: center;
-    gap: 200px;
     margin-bottom: 20px;
+    gap: 20px;
     
     img {
-        max-width: 300px;
+        height: auto;
         height: auto;
     }
+
+    .logo {
+        height: 100px;
+        width: 100px;
+    }
+
+    .overview {
+        height: 300px;
+        width: 900px;
+    }
+
 }

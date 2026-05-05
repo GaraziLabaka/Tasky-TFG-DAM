@@ -1,9 +1,9 @@
 package tfg.services;
 
-import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
-public class CompleteTaskServiceTest {
+public class CompleteTaskServiceSymflowerTest {
 	@Test
 	public void completeTaskService1() {
 		CompleteTaskService c = new CompleteTaskService();
